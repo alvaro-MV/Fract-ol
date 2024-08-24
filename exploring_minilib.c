@@ -26,6 +26,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	ft_printf("dst: %d\n", dst);
 	*(unsigned int*)dst = color;
 }
 
@@ -55,7 +56,7 @@ int	print_line(int keymap, mlx_vars *vars)
 		while (j < vars->width)
 		{
 			//ft_printf("column: %d\n", j);
-			my_mlx_pixel_put(&vars->img, vars->height_offset, j, 0x00FF0000);
+			my_mlx_pixel_put(&vars->img, j, vars->height_offset, 0x00FF0000);
 			j++;
 		}
 		mlx_put_image_to_window(vars->mlx, vars->win, &vars->img, 0, 0);
