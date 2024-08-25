@@ -1,37 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "fract-ol.h"
+#include "lib/include/libft.h"
 
-double	*get_mandelbrot_set(double c, int len)
+complex	*get_mandelbrot_set(complex c, int len)
 {
-	double			*mandelbrot_set;
-	double			z_n;
+	complex			*mandelbrot_set;
+	complex			z_n;
 	unsigned int	i;
 
-	mandelbrot_set = malloc(len * sizeof(double) + 1);
-	z_n = 0;
+	mandelbrot_set = malloc((len + 1) * sizeof(complex));
+	z_n.re = 0;
+	z_n.im = 0;
 	mandelbrot_set[0] = z_n;
 	i = 1;
 	while (len--)
 	{
-		z_n = pow(z_n, 2) + c;
+		z_n.re = pow(z_n.re, 2) - pow(z_n.im, 2) + c.re;
+		z_n.im = (2 * z_n.re * z_n.im) + c.im;
 		mandelbrot_set[i] = z_n;
 		i++;
 	}
 	return (mandelbrot_set);
 }
 
-int	main(void)
+int	get_next_mand_n(complex c, complex *z_n, int max_iteration) 
 {
-	double	c = -1;
-	int		len = 6;
-	int		i = 0;
-	double	*mand_set = get_mandelbrot_set(c, len);
-	while (len--)
+	static int	iteration;
+
+	if (iteration >= max_iteration)
+		return (0);
+	if (iteration == 0)
 	{
-		printf("%.2lf\t", mand_set[i]);
-		i++;
+		z_n->re = 0;
+		z_n->im = 0;
 	}
-	free(mand_set);
-	return (0);
+	z_n->re = pow(z_n->re, 2) - pow(z_n->im, 2) + c.re;
+	z_n->im = (2 * z_n->re * z_n->im) + c.im;
+	iteration++;
+	return (1);
+}
+
+void	print_complex(complex mand_num)
+{
+	printf("%.1lf", mand_num.re);
+	if (mand_num.im != 0)
+	{
+		if (mand_num.im < 0)
+			printf(" - ");
+		else
+			printf(" + ");
+		printf("%.1lfi", mand_num.im);
+	}
+	printf("\n");
+}
+
+int	get_iteration(complex c, int max_iter)
+{
+	complex	z_n;
+	int		counter = 0;
+
+	c.re = 1;
+	c.im = 0;
+	while (get_next_mand_n(c, &z_n, max_iter))
+	{
+		if (z_n.re*z_n.re + z_n.im*z_n.im > 4)
+			break ;
+		counter++;
+	}
+	return (counter);
 }

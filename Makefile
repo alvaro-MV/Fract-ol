@@ -4,7 +4,10 @@ NAME=fract-ol
 LIB_DIR=./lib
 LIBFT=lib/libft.a
 
-SRCS=exploring_minilib.c
+SRCS=escaping_algo.c \
+     mandelbrot.c 
+
+
 FLAGS= -Wall -Wextra -Werror
 OBJ=$(patsubst %.c, %.o, $(SRCS))
 

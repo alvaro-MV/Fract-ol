@@ -1,0 +1,92 @@
+#include "mlx.h"
+#include "mlx_int.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include "lib/include/libft.h"
+#include "lib/include/get_next_line.h"
+#include "fract-ol.h"
+#include <math.h>
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
+typedef	struct var_mlx {
+	void	*win;
+	void	*mlx;
+	t_data	img;
+	int		height;
+	int		width;
+	int		height_offset;
+}			mlx_vars;
+
+void	print_pixel(t_data img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+	* (unsigned int *) dst = color;
+}
+
+int	print_mandel(mlx_vars *vars)
+{
+	int 	i;
+	int 	j;
+	int		color;
+	char	*color_string;
+	char	**color_lst;
+	int		fd_colors;
+	complex	c;
+
+	i = 0;
+	j = 0;
+	fd_colors = open("colors.txt", O_RDONLY); //definir macro para el archivo a usar.
+	if (fd_colors == -1)
+		exit(-1);
+	color_string = (char *) malloc(LEN_COLOR_FD + 1); //cambiar por funcion que calcule la lon de archivo
+	read(fd_colors, color_string, LEN_COLOR_FD);
+	close(fd_colors);
+	color_lst = ft_split(color_string, '\n');
+	free(color_string);
+	while (j < WIN_HEIGHT)
+	{
+		while (i < WIN_WIDTH)
+		{
+			c.re = i;
+			c.im = j;
+			color = ft_atoi(color_lst[get_iteration(c, MAX_ITER - 1)]);
+			print_pixel(vars->img, i, j, color);
+			i++;
+		}
+		j++;
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+	ft_free_array(color_lst);
+	return (0);
+}
+
+int	main(void)
+{
+	mlx_vars	vars;
+	t_data		img;
+	char		*relative_path;
+	complex		c;
+
+	vars.mlx = mlx_init();
+	vars.height = 900;
+	vars.width = 701;
+	vars.height_offset = 0;
+	vars.win = mlx_new_window(vars.mlx, 900, 701, "Hello world!");
+	img.img = mlx_new_image(vars.mlx, 900, 701);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	vars.img = img;
+	print_mandel(&vars);
+	mlx_loop(vars.mlx);
+	mlx_destroy_window(vars.mlx, vars.win);
+}
