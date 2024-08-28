@@ -31,7 +31,7 @@ int	get_value(char c)
 		return (15);
 }
 
-int	ft_atox(char *str)
+int	ft_xtoi(char *str)
 {
 	int	signo;
 	int	value;
@@ -40,17 +40,12 @@ int	ft_atox(char *str)
 	signo = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
-	if (ft_strncmp(str, "0x", 2))
-		str++;
+	if (!ft_strncmp(str, "0x", 2))
+		str += 2;
 	while (valid_char(*str))
 	{
-		value = get_value(*str) + value * 10;
+		value = get_value(*str) + value * 16;
 		str++;
 	}
 	return (value);
-}
-int main(void)
-{
-    printf("mine: %i\n", ft_atox("0x78a3B"));
-    return (0);
 }

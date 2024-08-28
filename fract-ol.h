@@ -32,9 +32,11 @@ typedef struct fract_ol
 complex *get_mandelbrot_set(complex c, int len);
 int     get_next_mand_n(complex c, complex *z_n, int max_iteration);
 int	    get_iteration(complex c, int max_iter);
+void	get_size_increment(fractal *fract);
+int	    ft_xtoi(char *str);
 
 //Colors
-char	**get_palette(char *path, int len_palette)
+char	**get_palette(char *path, int len_palette);
 
 # define COLOR_PATH "colors.txt"
 # define COLOR_MAP_LEN 754

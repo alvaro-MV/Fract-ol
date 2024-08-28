@@ -26,30 +26,46 @@ void	print_pixel(t_data img, int x, int y, int color)
 	* (unsigned int *) dst = color;
 }
 
-int	print_mandel(mlx_vars *vars)
+int	print_mandel(mlx_vars *vars, fractal fract)
 {
-	double 	i;
-	double 	j;
+	int 	i;
+	int 	j;
 	int		color;
-	char	*palette;
+	char	**palette;
 	complex	c;
+	int counter = 0;
 
-	i = 0;
-	j = 0;
-	
 	palette = get_palette(COLOR_PATH, COLOR_MAP_LEN);
-	while (j < WIN_HEIGHT)
+	c.re = fract.left_end;
+	c.im = fract.left_end;
+	printf("c re: %lf,  c im: %lf\n", c.re, c.im);
+	i = 0;
+	while (i < WIN_WIDTH)
 	{
-		while (i < WIN_WIDTH)
-		{
-			c.re = i;
-			c.im = j;
-			color = ft_atoi(palette[get_iteration(c, COLOR_MAP_LEN - 1)]);
-			print_pixel(vars->img, i, j, color);
-			i++;
-		}
-		j++;
+		printf("c re: %lf,  c im: %lf\n", c.re, c.im);
+		counter = get_iteration(c, MAX_ITER);
+		ft_printf("counter: %d\n", counter);
+		print_pixel(vars->img, 23, i, counter);
+		c.re += fract.width_incr;
+		c.im += fract.heigth_incr;
+		i++;
 	}
+//	while (i < WIN_HEIGHT)
+	//{
+		//c.im = fract.left_end;
+		//j = 0;
+		//while (j < WIN_WIDTH)
+		//{
+			//ft_printf("i:  %d,   j: %d\n", i, j);
+			//color = ft_xtoi(palette[get_iteration(c, MAX_ITER)]);
+			//ft_printf("color:  %d\n", color);
+			//print_pixel(vars->img, i, j, color);
+			//c.im += fract.width_incr;
+			//j++;
+		//}
+		//c.re += fract.heigth_incr;
+		//i++;
+	//}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	ft_free_array(palette);
 	return (0);
@@ -64,15 +80,18 @@ int	main(void)
 	fractal		fract;
 
 	vars.mlx = mlx_init();
-	vars.height = 900;
-	vars.width = 701;
+	vars.height = WIN_HEIGHT;
+	vars.width = WIN_WIDTH;
 	vars.height_offset = 0;
-	vars.win = mlx_new_window(vars.mlx, 900, 701, "Hello world!");
+	vars.win = mlx_new_window(vars.mlx, WIN_HEIGHT, WIN_WIDTH, "Hello world!");
 	img.img = mlx_new_image(vars.mlx, 900, 701);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	vars.img = img;
-	print_mandel(&vars);
+	fract.right_end = 2;
+	fract.left_end = -2;
+	get_size_increment(&fract);
+	print_mandel(&vars, fract);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
 }

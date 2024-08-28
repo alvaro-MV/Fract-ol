@@ -36,7 +36,7 @@ void	print_circle(int centrus_x, int centrus_y, int radius, t_data img)
 	int i = centrus_x - radius;
 	int j = centrus_y - radius;
 	int	radius2 = radius*radius;
-	int color = ;
+	int color = 0x00ff;
 	ft_printf("color: %d\n", color);
 	while (i < centrus_x + radius)
 	{

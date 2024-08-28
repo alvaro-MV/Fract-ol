@@ -5,10 +5,10 @@
 	(-2 , .. 2 for mandelbrot set) in WIN_HEIGht and WIN_WIDTH, respectively.
 	The fractal sets are always considered squared.
  */
-void	get_size_increment(fractal fract)
+void	get_size_increment(fractal *fract)
 {
-	fract.heigth_incr = (fract.right_end + fract.left_end) / WIN_HEIGHT;
-	fract.width_incr = (fract.right_end + fract.left_end) / WIN_WIDTH;
+	fract->heigth_incr = (fract->right_end - fract->left_end) / WIN_HEIGHT;
+	fract->width_incr = (fract->right_end - fract->left_end) / WIN_WIDTH;
 }
 
 //void	axis_resize(fractal fract)

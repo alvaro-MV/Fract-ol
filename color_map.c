@@ -33,17 +33,17 @@ char	**get_palette(char *path, int len_palette)
 	return (palette);
 }
 
-int	main(void)
-{
-	char	*path = "colors.txt";
-	char	**palette = get_palette(path, COLOR_MAP_LEN);
-	int		i = 0;
+//int	main(void)
+//{
+	//char	*path = "colors.txt";
+	//char	**palette = get_palette(path, COLOR_MAP_LEN);
+	//int		i = 0;
 
-	while (palette[i])
-	{
-		ft_printf("%d)) palette color: %s\n", i, palette[i]);
-		i++;
-	}
-	ft_free_array(palette);
-	return (0);
-}
+	//while (palette[i])
+	//{
+		//ft_printf("%d)) palette color: %s\n", i, palette[i]);
+		//i++;
+	//}
+	//ft_free_array(palette);
+	//return (0);
+//}
