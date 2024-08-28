@@ -3,6 +3,7 @@
 		"stdio.h": "c",
 		"libft.h": "c",
 		"random": "c",
-		"mlx_int.h": "c"
+		"mlx_int.h": "c",
+		"fract-ol.h": "c"
 	}
 }

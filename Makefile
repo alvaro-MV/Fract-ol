@@ -4,8 +4,7 @@ NAME=fract-ol
 LIB_DIR=./lib
 LIBFT=lib/libft.a
 
-SRCS=escaping_algo.c \
-     mandelbrot.c 
+SRCS=exploring_minilib.c
 
 
 FLAGS= -Wall -Wextra -Werror

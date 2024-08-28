@@ -36,7 +36,7 @@ void	print_circle(int centrus_x, int centrus_y, int radius, t_data img)
 	int i = centrus_x - radius;
 	int j = centrus_y - radius;
 	int	radius2 = radius*radius;
-	int color = color_values[((centrus_x + centrus_y) / 2) % COLOR_MAP_LEN];
+	int color = ;
 	ft_printf("color: %d\n", color);
 	while (i < centrus_x + radius)
 	{
@@ -91,7 +91,6 @@ int	move_circle(int keymap, mlx_vars *vars)
 	static int	centrus_x = 70;
 	static int centrus_y = 70;;
 	int radius = 60;
-	int	color = 0x00ff00;
 
 	ft_printf("keymap: %d\n", keymap);
 	if (keymap == 65364)
