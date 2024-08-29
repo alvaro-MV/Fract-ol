@@ -20,23 +20,23 @@ typedef struct fract_ol
 {
     double  heigth_incr;
     double  width_incr;
-    double  right_end;
-    double  left_end;
+    double  x_axis;
+    double  y_axis;
 }           fractal;
 
-# define WIN_HEIGHT 900
-# define WIN_WIDTH 701
+# define WIN_HEIGHT 512
+# define WIN_WIDTH 512
 
 # define MAX_ITER 754
 
 complex *get_mandelbrot_set(complex c, int len);
 int     get_next_mand_n(complex c, complex *z_n, int *iteration);
 int	    get_iteration(complex c);
-void	get_size_increment(fractal *fract);
 int	    ft_xtoi(char *str);
 
 //Colors
 char	**get_palette(char *path, int len_palette);
+void	print_complex(complex mand_num);
 
 # define COLOR_PATH "colors.txt"
 # define COLOR_MAP_LEN 754

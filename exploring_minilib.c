@@ -52,37 +52,49 @@ void	print_circle(int centrus_x, int centrus_y, int radius, t_data img)
 	}
 }
 
-int	print_rainbow(int keymap, mlx_vars *vars)
+int	get_scape(int i, int j)
+{
+	double	re, im;
+	int iteration = 0;
+	double	z_n_re, z_n_im;
+
+	re = 2 * ((double)(450 - i) / 450);
+	im = 2 * ((double)(450 - j) / 450);
+	z_n_re = 0;
+	z_n_im = 0;
+
+	while (iteration < 20)
+	{
+		if (z_n_re*z_n_re + z_n_im*z_n_im > 4)
+			return (0x00ffffff);
+		z_n_re = pow(z_n_re, 2) - pow(z_n_im, 2) + re;
+		z_n_im = (2 * z_n_re * z_n_im) + im;
+		iteration = iteration + 1;
+	}
+	return (0x0);
+}
+
+int	print_rainbow(mlx_vars *vars, int sizze)
 {
 	int	j;
-	int	flag_height = 5;
 	int	i;
-	int col_ra = 0;
-	int rainbow[] = {0xff0000, 0xffff00, 0x00ff00, 0x00ffff, 0x0000ff, 0xff00ff, 0xff0000};
 
-	if (keymap == 65364)
+	vars->img.img = mlx_new_image(vars->mlx, sizze, sizze);
+	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
+							&vars->img.endian);
+	j = 0;
+	while (j < sizze)
 	{
-		vars->img.img = mlx_new_image(vars->mlx, 900, 800);
-		vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
-								&vars->img.endian);
-		while (col_ra < 7)
+		i = 0;
+		while (i < sizze)
 		{
-			j = 0;
-			while (j < flag_height)
-			{
-				i = 0;
-				while (i < vars->width)
-				{
-					my_mlx_pixel_put(&vars->img, i, vars->height_offset, rainbow[col_ra]);
-					i++;
-				}
-				vars->height_offset++;
-				j++;
-			}
-			col_ra++;
+			my_mlx_pixel_put(&vars->img, j, i, get_scape(i, j));
+			i++;
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+		vars->height_offset++;
+		j++;
 	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	return (0);
 }
 
@@ -106,7 +118,7 @@ int	move_circle(int keymap, mlx_vars *vars)
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
 							&vars->img.endian);
 	print_circle(centrus_x, centrus_y, radius, vars->img);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 200, 200);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	return (0);
 }
 
@@ -114,18 +126,18 @@ int	main(void)
 {
 	mlx_vars	vars;
 	t_data		img;
-	char		*relative_path;
+	int			sizze = 5000;	
 
 	vars.mlx = mlx_init();
-	vars.height = 900;
-	vars.width = 701;
+	vars.height = sizze;
+	vars.width = sizze;
 	vars.height_offset = 0;
-	vars.win = mlx_new_window(vars.mlx, 900, 701, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, 900, 701);
+	vars.win = mlx_new_window(vars.mlx, sizze, sizze, "Hello world!");
+	img.img = mlx_new_image(vars.mlx, sizze, sizze);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	vars.img = img;
-	mlx_key_hook(vars.win, move_circle, &vars);
+	print_rainbow(&vars, sizze);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
 }

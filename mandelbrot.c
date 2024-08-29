@@ -60,7 +60,6 @@ int	get_iteration(complex c)
 	int		counter = 0;
 	int		iteration;
 
-	printf("c complex: ");
 	print_complex(c);
 	iteration = 0;
 	while (get_next_mand_n(c, &z_n, &iteration))
@@ -69,7 +68,7 @@ int	get_iteration(complex c)
 			break ;
 		counter++;
 	}
-	printf("counter. %d\n", counter);
+	//printf("counter. %d\n", counter);
 	return (counter);
 }
 

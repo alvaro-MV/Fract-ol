@@ -28,7 +28,7 @@ void	print_pixel(t_data img, int x, int y, int color)
 
 int	print_mandel(mlx_vars *vars, fractal fract)
 {
-	int 	i;
+	int		i;
 	int 	j;
 	int		color;
 	char	**palette;
@@ -36,18 +36,16 @@ int	print_mandel(mlx_vars *vars, fractal fract)
 	int counter = 0;
 
 	palette = get_palette(COLOR_PATH, COLOR_MAP_LEN);
-	c.re = fract.left_end;
-	c.im = fract.left_end;
+	c.re = fract.x_axis;
 	i = 0;
-	while (i < WIN_HEIGHT)
+	while (i < WIN_HEIGHT * 3)
 	{
-		c.im = fract.left_end;
+		c.im = fract.y_axis;
 		j = 0;
-		while (j < WIN_WIDTH)
+		while (j < WIN_WIDTH * 3)
 		{
-			ft_printf("i:  %d,   j: %d\n", i, j);
-			color = ft_xtoi(palette[get_iteration(c)]);
-			ft_printf("color:  %d\n", color);
+			printf("re  : %lf,    im: %lf\n", c.re, c.im);
+			color = ft_xtoi(palette[get_iteration(c) % COLOR_MAP_LEN]);
 			print_pixel(vars->img, i, j, color);
 			c.im += fract.width_incr;
 			j++;
@@ -58,6 +56,14 @@ int	print_mandel(mlx_vars *vars, fractal fract)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	ft_free_array(palette);
 	return (0);
+}
+
+void init_fractal( fractal *fract)
+{
+	fract->heigth_incr = 3.0 / WIN_HEIGHT;
+	fract->width_incr = 3.0 / WIN_WIDTH;
+	fract->x_axis = -2.0;
+	fract->y_axis  =-1.5;
 }
 
 int	main(void)
@@ -72,14 +78,12 @@ int	main(void)
 	vars.height = WIN_HEIGHT;
 	vars.width = WIN_WIDTH;
 	vars.height_offset = 0;
-	vars.win = mlx_new_window(vars.mlx, WIN_HEIGHT, WIN_WIDTH, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, 900, 701);
+	vars.win = mlx_new_window(vars.mlx, (3 * WIN_HEIGHT), (3 * WIN_WIDTH), "Hello world!");
+	img.img = mlx_new_image(vars.mlx, (3 * WIN_HEIGHT), (3 * WIN_WIDTH));
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	vars.img = img;
-	fract.right_end = 2;
-	fract.left_end = -2;
-	get_size_increment(&fract);
+	init_fractal(&fract);
 	print_mandel(&vars, fract);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
