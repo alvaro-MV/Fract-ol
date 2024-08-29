@@ -30,8 +30,8 @@ typedef struct fract_ol
 # define MAX_ITER 754
 
 complex *get_mandelbrot_set(complex c, int len);
-int     get_next_mand_n(complex c, complex *z_n, int max_iteration);
-int	    get_iteration(complex c, int max_iter);
+int     get_next_mand_n(complex c, complex *z_n, int *iteration);
+int	    get_iteration(complex c);
 void	get_size_increment(fractal *fract);
 int	    ft_xtoi(char *str);
 

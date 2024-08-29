@@ -38,34 +38,23 @@ int	print_mandel(mlx_vars *vars, fractal fract)
 	palette = get_palette(COLOR_PATH, COLOR_MAP_LEN);
 	c.re = fract.left_end;
 	c.im = fract.left_end;
-	printf("c re: %lf,  c im: %lf\n", c.re, c.im);
 	i = 0;
-	while (i < WIN_WIDTH)
+	while (i < WIN_HEIGHT)
 	{
-		printf("c re: %lf,  c im: %lf\n", c.re, c.im);
-		counter = get_iteration(c, MAX_ITER);
-		ft_printf("counter: %d\n", counter);
-		print_pixel(vars->img, 23, i, counter);
-		c.re += fract.width_incr;
-		c.im += fract.heigth_incr;
+		c.im = fract.left_end;
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			ft_printf("i:  %d,   j: %d\n", i, j);
+			color = ft_xtoi(palette[get_iteration(c)]);
+			ft_printf("color:  %d\n", color);
+			print_pixel(vars->img, i, j, color);
+			c.im += fract.width_incr;
+			j++;
+		}
+		c.re += fract.heigth_incr;
 		i++;
 	}
-//	while (i < WIN_HEIGHT)
-	//{
-		//c.im = fract.left_end;
-		//j = 0;
-		//while (j < WIN_WIDTH)
-		//{
-			//ft_printf("i:  %d,   j: %d\n", i, j);
-			//color = ft_xtoi(palette[get_iteration(c, MAX_ITER)]);
-			//ft_printf("color:  %d\n", color);
-			//print_pixel(vars->img, i, j, color);
-			//c.im += fract.width_incr;
-			//j++;
-		//}
-		//c.re += fract.heigth_incr;
-		//i++;
-	//}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	ft_free_array(palette);
 	return (0);

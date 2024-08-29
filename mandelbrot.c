@@ -25,20 +25,18 @@ complex	*get_mandelbrot_set(complex c, int len)
 	return (mandelbrot_set);
 }
 
-int	get_next_mand_n(complex c, complex *z_n, int max_iteration) 
+int	get_next_mand_n(complex c, complex *z_n, int *iteration) 
 {
-	static int	iteration;
-
-	if (iteration >= max_iteration)
+	if (*iteration >= MAX_ITER - 1)
 		return (0);
-	if (iteration == 0)
+	if (*iteration == 0)
 	{
 		z_n->re = 0;
 		z_n->im = 0;
 	}
 	z_n->re = pow(z_n->re, 2) - pow(z_n->im, 2) + c.re;
 	z_n->im = (2 * z_n->re * z_n->im) + c.im;
-	iteration++;
+	*iteration = *iteration + 1;
 	return (1);
 }
 
@@ -56,17 +54,22 @@ void	print_complex(complex mand_num)
 	printf("\n");
 }
 
-int	get_iteration(complex c, int max_iter)
+int	get_iteration(complex c)
 {
 	complex	z_n;
 	int		counter = 0;
+	int		iteration;
 
-	while (get_next_mand_n(c, &z_n, max_iter))
+	printf("c complex: ");
+	print_complex(c);
+	iteration = 0;
+	while (get_next_mand_n(c, &z_n, &iteration))
 	{
 		if (z_n.re*z_n.re + z_n.im*z_n.im > 4)
 			break ;
 		counter++;
 	}
+	printf("counter. %d\n", counter);
 	return (counter);
 }
 
