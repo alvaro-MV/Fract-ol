@@ -31,113 +31,69 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	print_circle(int centrus_x, int centrus_y, int radius, t_data img)
+int	get_scape(mlx_vars *vars, int i, int j, int sizze)
 {
-	int i = centrus_x - radius;
-	int j = centrus_y - radius;
-	int	radius2 = radius*radius;
-	int color = 0x00ff;
-	ft_printf("color: %d\n", color);
-	while (i < centrus_x + radius)
+	double	re, im;
+	int		iter;
+	double	z_real, z_imag;
+	double	temp;
+
+	re = -2.0 + j * (3.0 / 900.0);
+	im = -1.5 + i * (3.0 / 900.0);
+
+	//printf("c real: %lf   c im: %lf\n", c_real, c_imag);
+	iter = 0;
+	z_real = 0;
+	z_imag = 0;
+	while (iter < 20 && z_real * z_real + z_imag * z_imag < 4.0) {
+		temp = z_real * z_real - z_imag * z_imag + re;
+		z_imag = 2 * z_real * z_imag + im;
+		z_real = temp;
+		iter++;
+	}
+	printf("iter: %d\n", iter);
+	if (iter == 20)
+		return (0x0);
+	else
+		return (0x00ffffff);
+}
+
+int	print_mandel(mlx_vars *vars, int sizze)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	vars->img.img = mlx_new_image(vars->mlx, sizze, sizze);
+	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
+							&vars->img.endian);
+
+    while (i < sizze) 
 	{
-		j = centrus_y - radius;
-		while (j < centrus_y + radius)
+		j = 0;
+		while (j < sizze)
 		{
-			if ((i - centrus_x)*(i - centrus_x) + (j - centrus_y)*(j - centrus_y) < radius2 - radius2/3
-				&& (i - centrus_x)*(i - centrus_x) + (j - centrus_y)*(j - centrus_y) < radius2 + radius2/3)
-					my_mlx_pixel_put(&img, i, j, color);
+			my_mlx_pixel_put(&vars->img, i, j, get_scape(vars, i, j, sizze));
 			j++;
 		}
 		i++;
 	}
-}
-
-int	get_scape(int i, int j)
-{
-	double	re, im;
-	int iteration = 0;
-	double	z_n_re, z_n_im;
-
-	re = 2 * ((double)(450 - i) / 450);
-	im = 2 * ((double)(450 - j) / 450);
-	z_n_re = 0;
-	z_n_im = 0;
-
-	while (iteration < 20)
-	{
-		if (z_n_re*z_n_re + z_n_im*z_n_im > 4)
-			return (0x00ffffff);
-		z_n_re = pow(z_n_re, 2) - pow(z_n_im, 2) + re;
-		z_n_im = (2 * z_n_re * z_n_im) + im;
-		iteration = iteration + 1;
-	}
-	return (0x0);
-}
-
-int	print_rainbow(mlx_vars *vars, int sizze)
-{
-	int	j;
-	int	i;
-
-	vars->img.img = mlx_new_image(vars->mlx, sizze, sizze);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
-							&vars->img.endian);
-	j = 0;
-	while (j < sizze)
-	{
-		i = 0;
-		while (i < sizze)
-		{
-			my_mlx_pixel_put(&vars->img, j, i, get_scape(i, j));
-			i++;
-		}
-		vars->height_offset++;
-		j++;
-	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
-}
-
-int	move_circle(int keymap, mlx_vars *vars)
-{
-	static int	centrus_x = 70;
-	static int centrus_y = 70;;
-	int radius = 60;
-
-	ft_printf("keymap: %d\n", keymap);
-	if (keymap == 65364)
-		centrus_y += radius + 10;
-	if (keymap == 65363)
-		centrus_x += radius + 10;
-	if (keymap == 65361)
-		centrus_x -= radius - 10;
-	if (keymap == 65362)
-		centrus_y -= radius - 10;
-	free(vars->img.img);
-	vars->img.img = mlx_new_image(vars->mlx, 500, 400);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
-							&vars->img.endian);
-	print_circle(centrus_x, centrus_y, radius, vars->img);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0,0);
 }
 
 int	main(void)
 {
 	mlx_vars	vars;
 	t_data		img;
-	int			sizze = 5000;	
+	int			sizze = 900;	
 
 	vars.mlx = mlx_init();
 	vars.height = sizze;
 	vars.width = sizze;
 	vars.height_offset = 0;
 	vars.win = mlx_new_window(vars.mlx, sizze, sizze, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, sizze, sizze);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	vars.img = img;
-	print_rainbow(&vars, sizze);
+	print_mandel(&vars, sizze);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
 }

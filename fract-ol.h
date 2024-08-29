@@ -24,8 +24,8 @@ typedef struct fract_ol
     double  y_axis;
 }           fractal;
 
-# define WIN_HEIGHT 512
-# define WIN_WIDTH 512
+# define WIN_HEIGHT 900
+# define WIN_WIDTH 900
 
 # define MAX_ITER 754
 

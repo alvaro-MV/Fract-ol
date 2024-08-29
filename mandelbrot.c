@@ -64,7 +64,7 @@ int	get_iteration(complex c)
 	iteration = 0;
 	while (get_next_mand_n(c, &z_n, &iteration))
 	{
-		if (z_n.re*z_n.re + z_n.im*z_n.im > 4)
+		if (z_n.re*z_n.re + z_n.im*z_n.im > 4.0)
 			break ;
 		counter++;
 	}
