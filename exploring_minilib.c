@@ -6,23 +6,6 @@
 #include "fract-ol.h"
 #include <math.h>
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef	struct var_mlx {
-	void	*win;
-	void	*mlx;
-	t_data	img;
-	int		height;
-	int		width;
-	int		height_offset;
-}			mlx_vars;
-
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -82,6 +65,12 @@ int	print_mandel(mlx_vars *vars, int sizze)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0,0);
 }
 
+int	print_key(int keycode, mlx_vars *vars)
+{
+	printf("key: %d\n", keycode);
+	return (0);
+}
+
 int	main(void)
 {
 	mlx_vars	vars;
@@ -91,10 +80,10 @@ int	main(void)
 	vars.mlx = mlx_init();
 	vars.height = sizze;
 	vars.width = sizze;
-	vars.height_offset = 0;
-	vars.win = mlx_new_window(vars.mlx, sizze, sizze, "Hello world!");
-	print_mandel(&vars, sizze);
+	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	//print_mandel(&vars, sizze);
+	mlx_key_hook(vars.win, print_key, &vars);
 	mlx_loop(vars.mlx);
-	mlx_destroy_window(vars.mlx, vars.win);
+	//mlx_destroy_window(vars.mlx, vars.win);
 }
 

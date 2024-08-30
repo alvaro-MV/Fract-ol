@@ -18,10 +18,14 @@ typedef struct complex_number
 
 typedef struct fract_ol
 {
-    double  heigth_incr;
-    double  width_incr;
     double  x_axis;
     double  y_axis;
+	double	axis_range;
+	int		color_offset;
+	int		win_height;
+	int		win_width;
+	int		max_iter;
+	int		(*fractal_func[2])();
 }           fractal;
 
 typedef struct	s_data {
