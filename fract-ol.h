@@ -24,10 +24,26 @@ typedef struct fract_ol
     double  y_axis;
 }           fractal;
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
+typedef	struct var_mlx {
+	void	*win;
+	void	*mlx;
+	t_data	img;
+	int		height;
+	int		width;
+}			mlx_vars;
+
 # define WIN_HEIGHT 900
 # define WIN_WIDTH 900
 
-# define MAX_ITER 754
+# define MAX_ITER 3278
 
 complex *get_mandelbrot_set(complex c, int len);
 int     get_next_mand_n(complex c, complex *z_n, int *iteration);

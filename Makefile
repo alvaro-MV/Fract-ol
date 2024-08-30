@@ -6,7 +6,6 @@ LIBFT=lib/libft.a
 
 SRCS=mandelbrot.c \
 	 color_map.c \
-	 axis.c \
 	 escaping_algo.c \
 	 ft_xtoi.c
 
