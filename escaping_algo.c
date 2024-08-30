@@ -1,5 +1,6 @@
-
+#include "eq_fractals.c"
 #include "fract-ol.h"
+#include "hooks.h"
 
 void	print_pixel(t_data img, int x, int y, int color)
 {
@@ -7,29 +8,6 @@ void	print_pixel(t_data img, int x, int y, int color)
 
 	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	* (unsigned int *) dst = color;
-}
-
-int	get_scape(int i, int j, fractal *fract)
-{
-	double	re, im;
-	int		iter;
-	double	z_real, z_imag;
-	double	temp;
-
-	re = fract->x_axis + i * (fract->axis_range / fract->win_height);
-	im = fract->y_axis + j * (fract->axis_range / fract->win_width);
-
-	iter = 0;
-	z_real = 0;
-	z_imag = 0;
-	//fract.fract_func();
-	while (iter < MAX_ITER - 1 && z_real * z_real + z_imag * z_imag < 4.0) {
-		temp = z_real * z_real - z_imag * z_imag + re;
-		z_imag = 2 * z_real * z_imag + im;
-		z_real = temp;
-		iter++;
-	}
-	return (iter);
 }
 
 void	print_fractal(mlx_vars *vars, fractal *fract)
@@ -42,14 +20,16 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	i = 0;
 	palette = get_palette(COLOR_PATH, COLOR_MAP_LEN);
 	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
-							&vars->img.endian);
+	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, 
+										&vars->img.line_length, &vars->img.endian);
     while (i < fract->win_height) 
 	{
 		j = 0;
 		while (j < fract->win_width)
 		{
-			color = ft_xtoi(palette[get_scape(i, j, fract) % COLOR_MAP_LEN]);
+			color = scape_mandelbrot(i, j, fract);
+			color += fract->color_offset * (1 - (color / fract->max_iter - 1));
+			color = ft_xtoi(palette[color % COLOR_MAP_LEN]);
 			print_pixel(vars->img, i, j, color);
 			j++;
 		}
@@ -79,12 +59,13 @@ int	main(void)
 
 	vars.mlx = mlx_init();
 	init_fractal(&fract);
+	vars.fract = &fract;
 	vars.height = fract.win_height;
 	vars.width = fract.win_width;
 	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "Mandelbrot");
 	print_fractal(&vars, &fract);
-	mlx_key_hook(vars.mlx, manage_keys, &vars);
-
+	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
+	return (0);
 }

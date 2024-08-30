@@ -4,10 +4,11 @@ NAME=fract-ol
 LIB_DIR=./lib
 LIBFT=lib/libft.a
 
-SRCS=mandelbrot.c \
-	 color_map.c \
-	 escaping_algo.c \
-	 ft_xtoi.c
+SRCS=color_map.c \
+     eq_fractals.c \
+     escaping_algo.c \
+     ft_xtoi.c \
+     hooks.c
 
 
 FLAGS= -Wall -Wextra -Werror

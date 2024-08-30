@@ -8,7 +8,7 @@
 # include <stdio.h>
 # include "lib/include/libft.h"
 # include "lib/include/get_next_line.h"
-#include <math.h>
+# include <math.h>
 
 typedef struct complex_number
 {
@@ -42,6 +42,7 @@ typedef	struct var_mlx {
 	t_data	img;
 	int		height;
 	int		width;
+	fractal	*fract;
 }			mlx_vars;
 
 # define WIN_HEIGHT 900
@@ -49,16 +50,18 @@ typedef	struct var_mlx {
 
 # define MAX_ITER 3278
 
-complex *get_mandelbrot_set(complex c, int len);
-int     get_next_mand_n(complex c, complex *z_n, int *iteration);
-int	    get_iteration(complex c);
 int	    ft_xtoi(char *str);
 
 //Colors
 char	**get_palette(char *path, int len_palette);
-void	print_complex(complex mand_num);
 
 # define COLOR_PATH "colors.txt"
 # define COLOR_MAP_LEN 754
+
+//Escaping algo
+void	print_pixel(t_data img, int x, int y, int color);
+void	print_fractal(mlx_vars *vars, fractal *fract);
+void	init_fractal( fractal *fract);
+
 
 #endif

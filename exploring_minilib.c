@@ -51,7 +51,6 @@ int	print_mandel(mlx_vars *vars, int sizze)
 	vars->img.img = mlx_new_image(vars->mlx, sizze, sizze);
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, &vars->img.line_length,
 							&vars->img.endian);
-
     while (i < sizze) 
 	{
 		j = 0;
@@ -71,19 +70,19 @@ int	print_key(int keycode, mlx_vars *vars)
 	return (0);
 }
 
-int	main(void)
-{
-	mlx_vars	vars;
-	t_data		img;
-	int			sizze = 900;	
+//int	main(void)
+//{
+	//mlx_vars	vars;
+	//t_data		img;
+	//int			sizze = 900;	
 
-	vars.mlx = mlx_init();
-	vars.height = sizze;
-	vars.width = sizze;
-	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	//vars.mlx = mlx_init();
+	//vars.height = sizze;
+	//vars.width = sizze;
+	//vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
 	//print_mandel(&vars, sizze);
-	mlx_key_hook(vars.win, print_key, &vars);
-	mlx_loop(vars.mlx);
-	//mlx_destroy_window(vars.mlx, vars.win);
-}
+	//mlx_key_hook(vars.win, print_key, &vars);
+	//mlx_loop(vars.mlx);
+	////mlx_destroy_window(vars.mlx, vars.win);
+//}
 

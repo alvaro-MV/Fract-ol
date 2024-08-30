@@ -4,6 +4,8 @@
 		"libft.h": "c",
 		"random": "c",
 		"mlx_int.h": "c",
-		"fract-ol.h": "c"
+		"fract-ol.h": "c",
+		"hooks.h": "c",
+		"eq_fractals.h": "c"
 	}
 }
