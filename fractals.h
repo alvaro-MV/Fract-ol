@@ -1,5 +1,5 @@
-#ifndef EQ_FRACTALS_H
-# define EQ_FRACTALS_H
+#ifndef FRACTALS_H
+# define FRACTALS_H
 
 # include "fract-ol.h"
 

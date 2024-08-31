@@ -5,7 +5,7 @@ LIB_DIR=./lib
 LIBFT=lib/libft.a
 
 SRCS=color_map.c \
-     eq_fractals.c \
+     fractals.c \
      escaping_algo.c \
      ft_xtoi.c \
      hooks.c

@@ -1,4 +1,4 @@
-#include "eq_fractals.h"
+#include "fractals.h"
 
 int	scape_mandelbrot(int i, int j, fractal *fract)
 {
@@ -13,7 +13,7 @@ int	scape_mandelbrot(int i, int j, fractal *fract)
 	iter = 0;
 	z_real = 0;
 	z_imag = 0;
-	while (iter < MAX_ITER - 1 && z_real * z_real + z_imag * z_imag < 4.0) {
+	while (iter < fract->max_iter && z_real * z_real + z_imag * z_imag < 4.0) {
 		temp = z_real * z_real - z_imag * z_imag + re;
 		z_imag = 2 * z_real * z_imag + im;
 		z_real = temp;

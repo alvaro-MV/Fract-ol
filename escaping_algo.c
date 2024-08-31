@@ -1,4 +1,4 @@
-#include "eq_fractals.c"
+#include "fractals.h"
 #include "fract-ol.h"
 #include "hooks.h"
 
@@ -22,7 +22,8 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, 
 										&vars->img.line_length, &vars->img.endian);
-    while (i < fract->win_height) 
+	printf("x axis: %lf,   y axis: %lf\n", fract->x_axis, fract->y_axis);
+	while (i < fract->win_height) 
 	{
 		j = 0;
 		while (j < fract->win_width)
@@ -65,6 +66,7 @@ int	main(void)
 	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "Mandelbrot");
 	print_fractal(&vars, &fract);
 	mlx_key_hook(vars.win, manage_keys, &vars);
+	mlx_mouse_hook(vars.win, manage_mouse, &vars);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
 	return (0);
