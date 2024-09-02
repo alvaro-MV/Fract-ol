@@ -40,23 +40,17 @@ int	manage_keys(int keymap, mlx_vars *vars)
 int	manage_mouse(int button, int x, int y, mlx_vars *vars)
 {
 	fractal	*frac;
-	double	axis_correction;
-	static int	zoom;
 
 	printf("button: %d\n", button);
-	if (zoom == 0)
-		zoom = 1;
 	frac = vars->fract;
 	if (button == 1)
 	{
 		printf("x re: %lf,  y im: %lf\n", x * (frac->axis_range / frac->win_height),  y * (frac->axis_range / frac->win_height));
-		axis_correction = 0.2;
-		frac->x_axis += x * (frac->axis_range / frac->win_height) - axis_correction;
-		frac->y_axis += y * (frac->axis_range / frac->win_height) - axis_correction;
-		frac->axis_range /= zoom;
+		frac->x_axis += x * (frac->axis_range / frac->win_height) - frac->axis_range / 4;
+		frac->y_axis += y * (frac->axis_range / frac->win_height) - frac->axis_range / 4;
+		frac->axis_range /= 2;
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		print_fractal(vars, vars->fract);
-		zoom++;
 	}
 	return (0);
 }
