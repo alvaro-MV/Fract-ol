@@ -28,7 +28,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		j = 0;
 		while (j < fract->win_width)
 		{
-			color = scape_mandelbrot(i, j, fract);
+			color = scape_julia(i, j, fract);
 			color += fract->color_offset * (1 - (color / fract->max_iter - 1));
 			color = ft_xtoi(palette[color % COLOR_MAP_LEN]);
 			print_pixel(vars->img, i, j, color);

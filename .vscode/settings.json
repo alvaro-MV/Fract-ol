@@ -6,6 +6,7 @@
 		"mlx_int.h": "c",
 		"fract-ol.h": "c",
 		"hooks.h": "c",
-		"eq_fractals.h": "c"
+		"eq_fractals.h": "c",
+		"fractals.h": "c"
 	}
 }
