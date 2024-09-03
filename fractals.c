@@ -21,8 +21,9 @@ int	scape_mandelbrot(int i, int j, fractal *fract)
 		z.re = temp;
 		iter++;
 	}
-	hue = iter / fract->max_iter * 360;	
-	return (hsv2rgb(hue, 1.0, 1.0));
+	hue = ((double) iter * 360) / fract->max_iter;
+	hue = fmod(pow(hue, 1.5), 360);	
+	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }
 
 int	scape_julia(int i, int j, fractal *fract)

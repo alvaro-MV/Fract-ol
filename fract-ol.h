@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include "lib/include/libft.h"
 # include "lib/include/get_next_line.h"
+# include "colors.h"
 # include <math.h>
 
 typedef struct complex_number
@@ -51,12 +52,6 @@ typedef	struct var_mlx {
 # define MAX_ITER 3278
 
 int	    ft_xtoi(char *str);
-
-//Colors
-char	**get_palette(char *path, int len_palette);
-
-# define COLOR_PATH "colors.txt"
-# define COLOR_MAP_LEN 754
 
 //Escaping algo
 void	print_pixel(t_data img, int x, int y, int color);
