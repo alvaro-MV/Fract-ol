@@ -28,8 +28,8 @@ int	scape_mandelbrot(int i, int j, fractal *fract)
 
 int	scape_julia(int i, int j, fractal *fract)
 {
-	double	re, im; //Esto se ha de controlar por CLI
-	double	z_real, z_imag;
+	double	z_real;
+	double	z_imag;
 	int		iter;
 	double	temp;
 	double	hue;
@@ -38,12 +38,10 @@ int	scape_julia(int i, int j, fractal *fract)
 	z_imag = fract->y_axis + j * (fract->axis_range / fract->win_width);
 
 	iter = 0;
-	re = -0.8;
-	im = 0.156;
 	while (iter < fract->max_iter && z_real * z_real + z_imag * z_imag < 4.0)
 	{
-		temp = z_real * z_real - z_imag * z_imag + re;
-		z_imag = 2 * z_real * z_imag + im;
+		temp = z_real * z_real - z_imag * z_imag + fract->j_real;
+		z_imag = 2 * z_real * z_imag + fract->j_im;
 		z_real = temp;
 		iter++;
 	}

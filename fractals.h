@@ -6,6 +6,6 @@
 int	scape_mandelbrot(int i, int j, fractal *fract);
 int	scape_julia(int i, int j, fractal *fract);
 int	scape_burning_ship(int i, int j, fractal *fract);
-int	scape_julia_poly(int i, int j, fractal *fract);
+int	scape_julia_sets(int i, int j, fractal *fract);
 
 #endif
