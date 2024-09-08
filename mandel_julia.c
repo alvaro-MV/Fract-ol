@@ -51,3 +51,31 @@ int	scape_julia(int i, int j, fractal *fract)
 	hue = fmod(pow(hue, 1.5), 360);	
 	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }
+
+int	scape_burning_ship(int i, int j, fractal *fract)
+{
+	complex	c;
+	int		iter;
+	complex	z;
+	double	temp;
+	double	hue;
+
+	c.re = fract->x_axis + i * (fract->axis_range / fract->win_height);
+	c.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
+
+	iter = 0;
+	z.re = 0;
+	z.im = 0;
+	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < (1 << 16))
+	{
+		z.re = (z.re < 0) * 2 * z.re;
+		z.im = (z.im < 0) * 2 * z.im;
+		temp = z.re * z.re - z.im * z.im + c.re;
+		z.im = 2 * z.re * z.im + c.im;
+		z.re = temp;
+		iter++;
+	}
+	hue = ((double) iter * 360) / fract->max_iter;
+	hue = fmod(pow(hue, 1.5), 360);	
+	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
+}

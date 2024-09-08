@@ -42,13 +42,23 @@ int	manage_mouse(int button, int x, int y, mlx_vars *vars)
 	fractal	*frac;
 
 	printf("button: %d\n", button);
+	ft_printf("x: %d    y: %d\n", x, y);
 	frac = vars->fract;
-	if (button == 1)
+	if (button == 4)
 	{
 		printf("x re: %lf,  y im: %lf\n", x * (frac->axis_range / frac->win_height),  y * (frac->axis_range / frac->win_height));
 		frac->x_axis += x * (frac->axis_range / frac->win_height) - frac->axis_range / 3;
 		frac->y_axis += y * (frac->axis_range / frac->win_height) - frac->axis_range / 3;
 		frac->axis_range /= 1.5;
+		mlx_destroy_image(vars->mlx, vars->img.img);
+		print_fractal(vars, vars->fract);
+	}
+	else if (button == 5)
+	{
+		printf("x re: %lf,  y im: %lf\n", x / (frac->axis_range / frac->win_height),  y / (frac->axis_range / frac->win_height));
+		frac->x_axis -= x * (frac->axis_range / frac->win_height) - frac->axis_range / 3;
+		frac->y_axis -= y * (frac->axis_range / frac->win_height) - frac->axis_range / 3;
+		frac->axis_range *= 1.5;
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		print_fractal(vars, vars->fract);
 	}
