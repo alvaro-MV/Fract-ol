@@ -85,8 +85,8 @@ int hsv2rgb_adjust_rgb(rgb rgb_t)
 // Main hsv2rgb function
 int	hsv2rgb(double h, double s, double v)
 {
-	rgb	rgb_color;
-	hsv	hsvpqt;
+	rgb		rgb_color;
+	hsv		hsvpqt;
 
 	if (s == 0) {
         rgb_color.r = v;

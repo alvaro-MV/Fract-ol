@@ -6,7 +6,7 @@
 /*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:00:35 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/08/20 18:06:42 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:42:05 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
 char	*ft_strmapi(char const *s, char (*f) (unsigned int, char));
-int	ft_strcmp(char *s1, char *s2);
-int	ft_strncmp(char *s1, char *s2, unsigned int n);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(char *s1, char *s2, unsigned int n);
 char	*ft_strnstr(const char *str, const char *to_find, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int	ft_tolower(int c);
-int	ft_toupper(int c);
+int		ft_tolower(int c);
+int		ft_toupper(int c);
 void	ft_free_array(char **marr);
 
 
@@ -98,6 +98,6 @@ typedef struct  MTRandGen
     int vector[N];
     int index;
 }       MTrand;
-unsigned int get_random_value(int seed);
+double	get_random_value(int seed);
 
 #endif

@@ -69,10 +69,10 @@ static unsigned MT_recursion(MTrand *rand)
     return (y);
 }
 
-unsigned int get_random_value(int seed)
+double	get_random_value(int seed)
 {
     static MTrand   *rand;
-    unsigned int    y;
+    double			y;
     unsigned int    s;
 
     if (seed <= 0)
@@ -85,21 +85,24 @@ unsigned int get_random_value(int seed)
         if (!rand)
             return (0);
     }
-    y = MT_recursion(rand);
-    return (y);
+    y = (double) MT_recursion(rand);
+    return (y / 4294967295);
 }
 
+//#include <stdio.h>
 //int main(void)
 //{
-    //float   next_number;
+    //double	next_number;
     //MTrand  *rand;
 
-    //next_number = get_random_value(0);
+    //next_number = (double) get_random_value(23);
     //if (next_number == -1)
         //return (0);
     //printf("next_number: %f\n", next_number);
-    //next_number = get_random_value(0);
+    //next_number = get_random_value(2);
     //printf("next_number: %f\n", next_number);
-    //next_number = get_random_value(0);
+    //next_number = get_random_value(-189);
+    //printf("next_number: %f\n", next_number);
+    //next_number = get_random_value(3784);
     //printf("next_number: %f\n", next_number);
 //}

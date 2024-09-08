@@ -18,7 +18,6 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	//char	**palette;
 
 	i = 0;
-	//palette = get_palette(COLOR_PATH, COLOR_MAP_LEN);
 	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, 
 										&vars->img.line_length, &vars->img.endian);
@@ -27,16 +26,14 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		j = 0;
 		while (j < fract->win_width)
 		{
-			color = scape_mandelbrot(i, j, fract);
-			//color += fract->color_offset * (1 - (color / fract->max_iter - 1));
-			//color = ft_xtoi(palette[color % COLOR_MAP_LEN]);
+			color = scape_julia_poly(i, j, fract);
+			color = (color + fract->color_offset) % 0x00ffffff;
 			print_pixel(vars->img, i, j, color);
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0,0);
-	//ft_free_array(palette);
 }
 
 void init_fractal( fractal *fract)
