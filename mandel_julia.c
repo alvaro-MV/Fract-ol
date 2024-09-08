@@ -64,12 +64,12 @@ int	scape_burning_ship(int i, int j, fractal *fract)
 	c.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
 
 	iter = 0;
-	z.re = 0;
-	z.im = 0;
+	z.re = c.re;
+	z.im = c.im;
 	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < (1 << 16))
 	{
-		z.re = (z.re < 0) * 2 * z.re;
-		z.im = (z.im < 0) * 2 * z.im;
+		z.re += (z.re < 0) * -2 * z.re;
+		z.im += (z.im < 0) * -2 * z.im;
 		temp = z.re * z.re - z.im * z.im + c.re;
 		z.im = 2 * z.re * z.im + c.im;
 		z.re = temp;

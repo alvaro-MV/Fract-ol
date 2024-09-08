@@ -6,9 +6,10 @@ LIBFT=lib/libft.a
 
 SRCS=color_map.c \
      mandel_julia.c \
-     poly_julia.c \
+     julia_sets.c \
      escaping_algo.c \
      ft_xtoi.c \
+	 ft_atof.c \
      hooks.c
 
 

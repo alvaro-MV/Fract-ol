@@ -27,6 +27,8 @@ typedef struct fract_ol
 	int		win_width;
 	int		max_iter;
 	int		(*fractal_func[2])();
+	double	j_real;
+	double	j_im;
 }           fractal;
 
 typedef struct	s_data {
@@ -52,11 +54,13 @@ typedef	struct var_mlx {
 # define MAX_ITER 3000
 
 int	    ft_xtoi(char *str);
+double	ft_atof(char *str);
+int		parse_params(char **argv, fractal *fract);
 
 //Escaping algo
 void	print_pixel(t_data img, int x, int y, int color);
 void	print_fractal(mlx_vars *vars, fractal *fract);
-void	init_fractal( fractal *fract);
+void	init_fractal( fractal *fract, char **argv);
 
 
 #endif
