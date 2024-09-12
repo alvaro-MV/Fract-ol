@@ -10,7 +10,8 @@ SRCS=color_map.c \
      escaping_algo.c \
      ft_xtoi.c \
 	 ft_atof.c \
-     hooks.c
+     hooks.c \
+	 parse_params.c
 
 
 FLAGS= -Wall -Wextra -Werror
