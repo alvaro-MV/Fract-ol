@@ -25,7 +25,8 @@ static int	check_floats_julia(char **argv)
 
 void	print_help_message(void)
 {
-	ft_printf("usage: fract-ol -m | -j [<real const part>] [<imaginary const part>]\n");
+	ft_printf("usage: fract-ol -m | -j [<real const part>]");
+	ft_printf(" [<imaginary const part>]\n");
 	ft_printf("\t-m: print the mandelbrot set.\n");
 	ft_printf("\t-j: print the julia set.\n");
 	ft_printf("\t\t<real const part>: the real part ");

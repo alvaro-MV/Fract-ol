@@ -26,7 +26,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		j = 0;
 		while (j < fract->win_width)
 		{
-			color = scape_julia_sets(i, j, fract);
+			color = scape_mandelbrot(i, j, fract);
 			color = (color + fract->color_offset) % 0x00ffffff;
 			print_pixel(vars->img, i, j, color);
 			j++;
@@ -52,7 +52,6 @@ void init_fractal( fractal *fract, char **argv)
 int	main(int argc, char **argv)
 {
 	mlx_vars	vars;
-	char		*relative_path;
 	fractal		fract;
 
 	vars.mlx = mlx_init();
@@ -63,6 +62,7 @@ int	main(int argc, char **argv)
 	vars.width = fract.win_width;
 	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "Fractals");
 	print_fractal(&vars, &fract);
+	ft_printf("llega a 1");
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);
 	mlx_loop(vars.mlx);

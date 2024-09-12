@@ -29,6 +29,8 @@ int	get_value(char c)
 		return (14);
 	else if (c == 'f' || c == 'F')
 		return (15);
+	else
+		return (-1);
 }
 
 int	ft_xtoi(char *str)
@@ -45,6 +47,8 @@ int	ft_xtoi(char *str)
 	while (valid_char(*str))
 	{
 		value = get_value(*str) + value * 16;
+		if (value == 1)
+			break ;
 		str++;
 	}
 	return (value);
