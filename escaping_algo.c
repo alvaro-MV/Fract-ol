@@ -2,6 +2,8 @@
 #include "fract-ol.h"
 #include "hooks.h"
 
+//https://gist.github.com/reveng007/b9ef8c7c7ed7a46b10a325f4dee42ac4
+
 void	print_pixel(t_data img, int x, int y, int color)
 {
 	char	*dst;
@@ -49,6 +51,11 @@ void init_fractal( fractal *fract, char **argv)
 	//fract->fractal_func = get_fractal_funcs();
 }
 
+int	close_win(mlx_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+}
+
 int	main(int argc, char **argv)
 {
 	mlx_vars	vars;
@@ -65,6 +72,7 @@ int	main(int argc, char **argv)
 	ft_printf("llega a 1");
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);
+	mlx_hook(vars.win, 4, 1L<<17, close_win, &vars);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
 	return (0);

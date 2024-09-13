@@ -70,19 +70,25 @@ int	print_key(int keycode, mlx_vars *vars)
 	return (0);
 }
 
-//int	main(void)
-//{
-	//mlx_vars	vars;
-	//t_data		img;
-	//int			sizze = 900;	
+int	close_win(mlx_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+}
 
-	//vars.mlx = mlx_init();
-	//vars.height = sizze;
-	//vars.width = sizze;
-	//vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
-	//print_mandel(&vars, sizze);
-	//mlx_key_hook(vars.win, print_key, &vars);
-	//mlx_loop(vars.mlx);
-	////mlx_destroy_window(vars.mlx, vars.win);
-//}
+int	main(void)
+{
+	mlx_vars	vars;
+	t_data		img;
+	int			sizze = 900;	
+
+	vars.mlx = mlx_init();
+	vars.height = sizze;
+	vars.width = sizze;
+	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	print_mandel(&vars, sizze);
+	mlx_key_hook(vars.win, print_key, &vars);
+	mlx_hook(vars.win, 4, 1L<<17, close_win, &vars);
+	mlx_loop(vars.mlx);
+	//mlx_destroy_window(vars.mlx, vars.win);
+}
 
