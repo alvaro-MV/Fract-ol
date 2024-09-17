@@ -41,7 +41,7 @@ static void    next_state_value(MTrand *rand, int k1, int k,
     rand->vector[k] = rand_m ^ (y >> 1) ^ a[y & 0x1];
 }
 
-static unsigned MT_recursion(MTrand *rand)
+static unsigned int MT_recursion(MTrand *rand)
 {
     unsigned int y;
     unsigned int k;
@@ -65,7 +65,6 @@ static unsigned MT_recursion(MTrand *rand)
     }
     next_state_value(rand, k1, k, a, M - N);
     y = tempering(rand->vector[N-1]);
-    //y /= 4294967295;
     return (y);
 }
 
@@ -86,7 +85,7 @@ double	get_random_value(int seed)
             return (0);
     }
     y = (double) MT_recursion(rand);
-    return (y / 4294967295);
+    return (y / INT32_MAX);
 }
 
 //#include <stdio.h>

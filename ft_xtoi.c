@@ -35,11 +35,9 @@ int	get_value(char c)
 
 int	ft_xtoi(char *str)
 {
-	int	signo;
 	int	value;
 
 	value = 0;
-	signo = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if (!ft_strncmp(str, "0x", 2))

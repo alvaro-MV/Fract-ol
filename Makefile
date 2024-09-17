@@ -11,7 +11,8 @@ SRCS=color_map.c \
      ft_xtoi.c \
 	 ft_atof.c \
      hooks.c \
-	 parse_params.c
+	 parse_params.c \
+	 lyapunov.c
 
 
 FLAGS= -Wall -Wextra -Werror
