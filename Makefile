@@ -21,6 +21,9 @@ OBJ=$(patsubst %.c, %.o, $(SRCS))
 %.o: %.c
 	$(CC) -Wall -Wextra -I/usr/include -I$(MLX_PATH) -O3 -c $< -o $@ -g
 
+$(LIBFT):
+	@make -sC $(LIB_DIR)
+
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(LIBFT) -L$(MLX_PATH) -l$(MLX_LIB) -L/usr/lib -I$(MLX_PATH) -lXext -lX11 -lm -lz -o $(NAME) -g
 
@@ -36,3 +39,5 @@ fclean:
 re: 
 	make fclean
 	make all
+
+.PHONY: all re clean fclean

@@ -57,5 +57,7 @@ int	parse_params(char **argv, fractal *fract)
 		fract->j_real = ft_atof(argv[1]);
 		fract->j_im = ft_atof(argv[2]);
 	}
+	else if (ft_strcmp(*argv, "-l") == 0)
+		ft_printf("lypunoooooooooov\n");
 	return (1);
 }

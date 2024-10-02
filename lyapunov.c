@@ -2,54 +2,34 @@
 
 int	scape_lyapunov(int i, int j)
 {
-	double	re;
-	double	im;
-	double	x;
+	double	z_real;
+	double	z_imag;
+	double	lyapunov;
+	double	hue;
+	int		iter;
 	double	r;
-	double	lambda;
-	double	lambda_temp;
-	int		n;
-	char	*seq;
+	double	theta;
 
-	re = 0 + i * (4.0 / 900);
-	im = 0 + j * (4.0 / 900);
-
-	x = 0.5;
-	seq = (char *) malloc(21 * sizeof(char));
-	n = 0;
-	while (n < 20)
+	z_real = 0 + i * (4.0 / 900);
+	z_imag = 0 + j * (4.0 / 900);
+	iter = 0;
+	r = 0;
+	theta = 0;
+	lyapunov = 0;
+	while (iter < MAX_ITER && (z_real * z_real + z_imag * z_imag) <= 4)
 	{
-		if (get_random_value(293898) >= 0.5)
-			seq[n] = 'A';
-		else
-			seq[n] = 'B';
-		n++;
+		r = 0.01 + sqrt(z_real * z_real + z_imag * z_imag);
+		printf("r desp: %lf\n", r);
+		theta = atan2(z_imag, z_real);
+		z_real = r * cos(theta);
+		printf("z_rela: %lf\n", z_real);
+		z_imag = r * sin(theta);
+		lyapunov += log(r);
+		iter++;
 	}
-	n = 1;
-	while (n > 20)
-	{
-		if (seq[n - 1] == 'A') 
-			r = re;
-		else
-			r = im;
-		x = r * x * (1 - x);
-	}
-	seq[n] = '\0';
-	n = 1;
-	lambda = 0;
-	while (n < 20)
-	{
-		if (seq[n - 1] == 'A') 
-			r = re;
-		else
-			r = im;
-		x = r * x * (1 - x);
-		lambda_temp = r * (1 - 2 * x);
-		lambda_temp += -2 * lambda_temp * (lambda_temp < 0);
-		lambda += log(lambda_temp);
-		n++;
-	}
-	lambda /= 20;
-	free(seq);
-	return (hsv2rgb(-1  *lambda, 100.0, -1 * lambda * 100));
+	lyapunov = (255.0 - (lyapunov / MAX_ITER) * 255.0);
+	hue = ((double) iter * 360) / MAX_ITER;
+	hue = fmod(pow(hue, 1.5), 360);	
+	printf("soy lyapu: %lf\n", hue);
+	return (hsv2rgb(hue, 100.0, -1 * lyapunov * 100));
 }

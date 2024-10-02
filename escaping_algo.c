@@ -23,6 +23,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, 
 										&vars->img.line_length, &vars->img.endian);
+	
 	while (i < fract->win_height) 
 	{
 		j = 0;
@@ -53,7 +54,7 @@ void init_fractal( fractal *fract, char **argv)
 
 int	close_win(mlx_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
+	return (mlx_destroy_window(vars->mlx, vars->win));
 }
 
 int	main(int argc, char **argv)
@@ -61,6 +62,7 @@ int	main(int argc, char **argv)
 	mlx_vars	vars;
 	fractal		fract;
 
+	(void) argc;
 	vars.mlx = mlx_init();
 	argv++;
 	init_fractal(&fract, argv);
