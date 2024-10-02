@@ -11,6 +11,8 @@
 # include "colors.h"
 # include <math.h>
 
+typedef int (*scape_func) (int i, int j, void *fract);
+
 typedef struct complex_number
 {
     double re;
@@ -19,17 +21,17 @@ typedef struct complex_number
 
 typedef struct fract_ol
 {
-    double  x_axis;
-    double  y_axis;
-	double	axis_range;
-	int		color_offset;
-	int		win_height;
-	int		win_width;
-	int		max_iter;
-	int		(*fractal_func[2])();
-	double	j_real;
-	double	j_im;
-}           fractal;
+    double  	x_axis;
+    double  	y_axis;
+	double		axis_range;
+	int			color_offset;
+	int			win_height;
+	int			win_width;
+	int			max_iter;
+	scape_func	fractal_func;
+	double		j_real;
+	double		j_im;
+}				fractal;
 
 typedef struct	s_data {
 	void	*img;
@@ -47,6 +49,7 @@ typedef	struct var_mlx {
 	int		width;
 	fractal	*fract;
 }			mlx_vars;
+
 
 # define WIN_HEIGHT 900
 # define WIN_WIDTH 900

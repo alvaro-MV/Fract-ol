@@ -2,8 +2,6 @@
 #include "fract-ol.h"
 #include "hooks.h"
 
-//https://gist.github.com/reveng007/b9ef8c7c7ed7a46b10a325f4dee42ac4
-
 void	print_pixel(t_data img, int x, int y, int color)
 {
 	char	*dst;
@@ -29,7 +27,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		j = 0;
 		while (j < fract->win_width)
 		{
-			color = scape_lyapunov(i, j);
+			color = fract->fractal_func(i, j, fract);
 			color = (color + fract->color_offset) % 0x00ffffff;
 			print_pixel(vars->img, i, j, color);
 			j++;
@@ -48,8 +46,8 @@ void init_fractal( fractal *fract, char **argv)
 	fract->win_height = WIN_HEIGHT;
 	fract->win_width = WIN_WIDTH;
 	fract->max_iter = MAX_ITER;
-	parse_params(argv, fract);
-	//fract->fractal_func = get_fractal_funcs();
+	if (!parse_params(argv, fract))
+		exit(-1);
 }
 
 int	close_win(mlx_vars *vars)

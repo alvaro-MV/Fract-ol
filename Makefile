@@ -5,7 +5,7 @@ LIB_DIR=./lib
 LIBFT=lib/libft.a
 
 SRCS=color_map.c \
-     mandel_julia.c \
+     mandatory.c \
      julia_sets.c \
      escaping_algo.c \
      ft_xtoi.c \
@@ -21,19 +21,21 @@ OBJ=$(patsubst %.c, %.o, $(SRCS))
 %.o: %.c
 	$(CC) -Wall -Wextra -I/usr/include -I$(MLX_PATH) -O3 -c $< -o $@ -g
 
+
+$(NAME): $(LIBFT) $(OBJ)
+	$(CC) $(OBJ) $(LIBFT) -L$(MLX_PATH) -l$(MLX_LIB) -L/usr/lib -I$(MLX_PATH) -lXext -lX11 -lm -lz -o $(NAME) -g
+
+
 $(LIBFT):
 	@make -sC $(LIB_DIR)
-
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) $(LIBFT) -L$(MLX_PATH) -l$(MLX_LIB) -L/usr/lib -I$(MLX_PATH) -lXext -lX11 -lm -lz -o $(NAME) -g
 
 all: $(NAME)
 
 clean:
+	@make fclean -C $(LIB_DIR)
 	@rm -rf $(OBJ)
 
-fclean:
-	@rm -rf $(OBJ)
+fclean: clean
 	@rm -rf $(NAME)
 
 re: 

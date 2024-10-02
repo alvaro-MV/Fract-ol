@@ -1,4 +1,5 @@
 #include "fract-ol.h"
+#include "fractals.h"
 
 static int	check_floats_julia(char **argv)
 {
@@ -25,39 +26,41 @@ static int	check_floats_julia(char **argv)
 
 void	print_help_message(void)
 {
-	ft_printf("usage: fract-ol -m | -j [<real const part>]");
-	ft_printf(" [<imaginary const part>]\n");
-	ft_printf("\t-m: print the mandelbrot set.\n");
-	ft_printf("\t-j: print the julia set.\n");
-	ft_printf("\t\t<real const part>: the real part ");
-	ft_printf("of c in the f(z) = z^2 + c expression.\n");
-	ft_printf("\t\t<imaginary const part>: the imaginary part ");
-	ft_printf("of c in the f(z) = z^2 + c expression.\n");
+	ft_putstr_fd("usage: fract-ol -m | -j [<real const part>]", 2);
+	ft_putstr_fd(" [<imaginary const part>]\n", 2);
+	ft_putstr_fd("\t-m: print the mandelbrot set.\n", 2);
+	ft_putstr_fd("\t-j: print the julia set.\n", 2);
+	ft_putstr_fd("\t\t<real const part>: the real part ", 2);
+	ft_putstr_fd("of c in the f(z) = z^2 + c expression.\n", 2);
+	ft_putstr_fd("\t\t<imaginary const part>: the imaginary part ", 2);
+	ft_putstr_fd("of c in the f(z) = z^2 + c expression.\n", 2);
+}
+
+int	print_error_msg(void)
+{
+	print_help_message();
+	return (0);
 }
 
 int	parse_params(char **argv, fractal *fract)
 {
 	if (ft_strcmp(*argv, "-m") == 1 || ft_strcmp(*argv, "-j") == 1)
-	{
-		print_help_message();
-		return (0);
-	}
+		return (print_error_msg());
 	else if (ft_strcmp(*argv, "-m") == 0 && argv[1] != NULL)
-	{
-		print_help_message();
-		return (0);
-	}
-	else if (ft_strcmp(*argv, "-j") == 0)
+		return (print_error_msg());
+	else if (ft_strcmp(*argv, "-m") == 0)
+		fract->fractal_func = scape_mandelbrot;
+ 	else if (ft_strcmp(*argv, "-j") == 0)
 	{
 		if (!check_floats_julia(argv))
-		{
-			print_help_message();
-			return (0);
-		}
+			return (print_error_msg());
 		fract->j_real = ft_atof(argv[1]);
 		fract->j_im = ft_atof(argv[2]);
+		fract->fractal_func = scape_julia;
 	}
 	else if (ft_strcmp(*argv, "-l") == 0)
-		ft_printf("lypunoooooooooov\n");
+		fract->fractal_func = scape_lyapunov;
+	else
+		return (print_error_msg());
 	return (1);
 }
