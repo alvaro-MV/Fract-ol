@@ -40,7 +40,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 void init_fractal( fractal *fract, char **argv)
 {
 	fract->x_axis = -2.0;
-	fract->y_axis  =-1.5;
+	fract->y_axis  = -1.5;
 	fract->axis_range = 3.0;
 	fract->color_offset = 0;
 	fract->win_height = WIN_HEIGHT;
@@ -69,10 +69,8 @@ int	main(int argc, char **argv)
 	vars.width = fract.win_width;
 	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "Fractals");
 	print_fractal(&vars, &fract);
-	ft_printf("llega a 1");
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);
-	mlx_hook(vars.win, 4, 1L<<17, close_win, &vars);
 	mlx_loop(vars.mlx);
 	mlx_destroy_window(vars.mlx, vars.win);
 	return (0);

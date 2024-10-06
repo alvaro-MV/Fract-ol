@@ -10,6 +10,7 @@
 # include "lib/include/get_next_line.h"
 # include "colors.h"
 # include <math.h>
+# include <limits.h>
 
 typedef int (*scape_func) (int i, int j, void *fract);
 
@@ -54,7 +55,7 @@ typedef	struct var_mlx {
 # define WIN_HEIGHT 900
 # define WIN_WIDTH 900
 
-# define MAX_ITER 60
+# define MAX_ITER 200
 
 int	    ft_xtoi(char *str);
 double	ft_atof(char *str);
@@ -64,6 +65,5 @@ int		parse_params(char **argv, fractal *fract);
 void	print_pixel(t_data img, int x, int y, int color);
 void	print_fractal(mlx_vars *vars, fractal *fract);
 void	init_fractal( fractal *fract, char **argv);
-
 
 #endif

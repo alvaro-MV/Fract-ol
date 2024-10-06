@@ -60,6 +60,8 @@ int	parse_params(char **argv, fractal *fract)
 	}
 	else if (ft_strcmp(*argv, "-l") == 0)
 		fract->fractal_func = scape_lyapunov;
+	else if (ft_strcmp(*argv, "-b") == 0)
+		fract->fractal_func = scape_burning_ship;
 	else
 		return (print_error_msg());
 	return (1);

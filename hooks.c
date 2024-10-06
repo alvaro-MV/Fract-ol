@@ -40,8 +40,9 @@ int	manage_mouse(int button, int x, int y, mlx_vars *vars)
 {
 	fractal	*frac;
 
+	printf("x: %d,  y: %d\n", x, y);
+	printf("button: %d\n", button);
 	frac = vars->fract;
-	ft_printf("button: %d\n", button);
 	if (button == 4)
 	{
 		frac->x_axis += x * (frac->axis_range / frac->win_height) - frac->axis_range / 3;

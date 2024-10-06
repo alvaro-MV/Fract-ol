@@ -1,37 +1,40 @@
 #include "fractals.h"
 
+static double	absol(double n)
+{
+	if (n >= 0)
+		return (n);
+	else
+		return (-n);
+}
 int	scape_lyapunov(int i, int j, void *vfract)
 {
-	double	z_real;
-	double	z_imag;
-	double	lyapunov;
-	double	hue;
-	int		iter;
+	double	A;
+	double	B;
+	double	x;
 	double	r;
-	double	theta;
+	double	lambda;
+	double	hue;
+	int		n;
 	fractal	*fract;
 
 	fract = (fractal *) vfract;
-	z_real = 0 + i * (4.0 / 900);
-	z_imag = 0 + j * (4.0 / 900);
-	iter = 0;
-	r = 0;
-	theta = 0;
-	lyapunov = 0;
-	while (iter < fract->max_iter && (z_real * z_real + z_imag * z_imag) <= 4)
+	A = 0 + i * (4.0 / 900);
+	B = 0 + j * (4.0 / 900);
+	x = 0.5;
+	n = 1;
+	lambda = 0;
+	while (n < fract->max_iter)
 	{
-		r = 0.01 + sqrt(z_real * z_real + z_imag * z_imag);
-		//printf("r desp: %lf\n", r);
-		theta = atan2(z_imag, z_real);
-		z_real = r * cos(theta);
-		//printf("z_rela: %lf\n", z_real);
-		z_imag = r * sin(theta);
-		lyapunov += log(r);
-		iter++;
+		if (n % 2 == 0) 
+			r = A;
+		else
+			r = B;
+		x = r * x * (1 - x);
+		lambda += log(absol(r * (1 - 2 * x)));
+		n++;
 	}
-	lyapunov = (255.0 - (lyapunov / fract->max_iter) * 255.0);
-	hue = ((double) iter * 360) / MAX_ITER;
-	hue = fmod(pow(hue, 1.5), 360);	
-	//printf("soy lyapu: %lf\n", hue);
-	return (hsv2rgb(hue, 100.0, -1 * lyapunov * 100));
+	lambda = ((lambda * 180) / fract->max_iter) + 180;
+	hue = fmod(pow(lambda, 1.5), 360);
+	return (hsv2rgb(hue, 100.0, lambda));
 }
