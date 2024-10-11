@@ -10,10 +10,13 @@ static double	absol(double n)
 
 double map_lambda_to_hue(double lambda)
 {
-    if (lambda <= 0) {
+    if (lambda <= 0)
+	{
         // Map negative and zero lambdas to yellow
         return (60);
-    } else {
+    }
+	else
+	{
         // Map positive lambdas to blue
         return (240);
     }
@@ -46,7 +49,6 @@ int	scape_lyapunov(int i, int j, void *vfract)
 		lambda += log(absol(r * (1 - 2 * x)));
 		n++;
 	}
-	//printf("coño: %lf\n", lambda);
 	hue = map_lambda_to_hue(lambda);
-	return (hsv2rgb(hue, fmod(lambda, 100), fmod(lambda, 100)));
+	return (hsv2rgb(fmod(hue,  360.0), fmod(fabs(lambda), 0.1), fmod(lambda, 100.0)));
 }
