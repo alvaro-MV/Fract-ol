@@ -2,6 +2,7 @@
 # define FRACTALS_H
 
 # include "fract-ol.h"
+# include <float.h>
 
 int	scape_mandelbrot(int i, int j, void *vfract);
 int	scape_julia(int i, int j, void *vfract);

@@ -8,12 +8,20 @@ static double	absol(double n)
 		return (-n);
 }
 
-double map_lambda_to_hue(double lambda)
+double map_lambda_to_hue(double lambda, fractal *fract)
 {
+	double	max;
+	long	*shifted_lambda;
+	max = fract->max_iter * 10.0;
     if (lambda <= 0)
 	{
-        // Map negative and zero lambdas to yellow
-        return (60);
+		lambda *= -1.0;
+		shifted_lambda = (long *) &lambda;
+		*shifted_lambda = *shifted_lambda >> 23;
+		lambda = (double) *shifted_lambda;
+		lambda /= (fract->max_iter * 100000000000.0);
+		lambda = (lambda *115.0) + 100.0;
+		return (lambda);
     }
 	else
 	{
@@ -49,6 +57,6 @@ int	scape_lyapunov(int i, int j, void *vfract)
 		lambda += log(absol(r * (1 - 2 * x)));
 		n++;
 	}
-	hue = map_lambda_to_hue(lambda);
-	return (hsv2rgb(fmod(hue,  360.0), fmod(fabs(lambda), 0.1), fmod(lambda, 100.0)));
+	hue = map_lambda_to_hue(lambda, fract);
+	return (hsv2rgb(hue, 100.0, 100.0));
 }

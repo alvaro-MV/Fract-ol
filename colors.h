@@ -19,7 +19,7 @@ typedef struct rgb_s
 }			rgb;
 
 
-//char	**get_palette(char *path, int len_palette);
+char	**get_palette(char *path, int len_palette);
 void	hsv2rgb_calc_intermediate(hsv hsv_t);
 void	hsv_fill_rgb(rgb *rgb_t, double hsv1, double hsv2, double hsv3);
 void	hsv2rgb_handle_saturation(rgb *rgb_t, hsv hsv_t);
