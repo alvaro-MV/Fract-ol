@@ -45,17 +45,17 @@ int	scape_lyapunov(int i, int j, void *vfract)
 	fractal	*fract;
 
 	fract = (fractal *) vfract;
-	A = 0 + i * (fract->axis_range / fract->win_height);
-	B = 0 + j * (fract->axis_range / fract->win_height);
+	A = fract->x_axis + i * (fract->axis_range / fract->win_height);
+	B = fract->y_axis + j * (fract->axis_range / fract->win_height);
 	x = 0.5;
 	n = 1;
 	lambda = 0;
 	while (n < fract->max_iter)
 	{
 		if (n % 2 == 0) 
-			r = B;
-		else
 			r = A;
+		else
+			r = B;
 		x = r * x * (1 - x);
 		lambda += log(absol(r * (1 - 2 * x)));
 		n++;

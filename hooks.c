@@ -2,6 +2,7 @@
 
 void	manage_arrows(int key, mlx_vars *vars)
 {
+	ft_printf("key: %d\n", key);
 	if (key == 65364) //flecha hacia abajo: mover el fractal hacia abajo.
 		vars->fract->y_axis += vars->fract->axis_range / 3;
 	else if (key == 65362) //flecha hacia arriba: mover hacia arriba.

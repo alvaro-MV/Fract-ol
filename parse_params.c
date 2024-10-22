@@ -42,6 +42,15 @@ int	print_error_msg(void)
 	return (0);
 }
 
+void	init_lyapunov(fractal *fract)
+{
+
+	fract->fractal_func = scape_lyapunov;
+	fract->axis_range = 4.0;
+	fract->x_axis = 0.0;
+	fract->y_axis = 0.0;
+}
+
 int	parse_params(char **argv, fractal *fract)
 {
 	if (ft_strcmp(*argv, "-m") == 1 || ft_strcmp(*argv, "-j") == 1)
@@ -59,10 +68,7 @@ int	parse_params(char **argv, fractal *fract)
 		fract->fractal_func = scape_julia;
 	}
 	else if (ft_strcmp(*argv, "-l") == 0)
-	{
-		fract->fractal_func = scape_lyapunov;
-		fract->axis_range = 4.0;
-	}
+		init_lyapunov(fract);
 	else if (ft_strcmp(*argv, "-b") == 0)
 		fract->fractal_func = scape_burning_ship;
 	else
