@@ -59,7 +59,10 @@ int	parse_params(char **argv, fractal *fract)
 		fract->fractal_func = scape_julia;
 	}
 	else if (ft_strcmp(*argv, "-l") == 0)
+	{
 		fract->fractal_func = scape_lyapunov;
+		fract->axis_range = 4.0;
+	}
 	else if (ft_strcmp(*argv, "-b") == 0)
 		fract->fractal_func = scape_burning_ship;
 	else
