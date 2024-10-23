@@ -19,12 +19,12 @@ int	manage_keys(int key, mlx_vars *vars)
 {
 	if (key == 65307) //escape
 		mlx_destroy_window(vars->mlx, vars->win);
-	else if (key == 105) // letra i: cambiar color del set fractal
-	{
-		mlx_destroy_image(vars->mlx, vars->img.img);
-		vars->fract->max_iter += 1000;
-		print_fractal(vars, vars->fract);
-	}
+//	else if (key == 105) // letra i: cambiar color del set fractal
+	//{
+		//mlx_destroy_image(vars->mlx, vars->img.img);
+		//vars->fract->max_iter += 1000;
+		//print_fractal(vars, vars->fract);
+	//}
 	else if (key == 111) // letra o: cambiar color fuera set fract.
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);

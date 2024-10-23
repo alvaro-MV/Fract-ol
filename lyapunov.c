@@ -23,7 +23,7 @@ double map_lambda_to_hue(double lambda, fractal *fract)
     }
 	else
 	{
-		return(282.756);
+		return(240.0);
 		// shifted_lambda = (long *) &lambda;
 		// *shifted_lambda = *shifted_lambda >> 23;
 		// lambda = (double) *shifted_lambda;
@@ -45,8 +45,8 @@ int	scape_lyapunov(int i, int j, void *vfract)
 	fractal	*fract;
 
 	fract = (fractal *) vfract;
-	A = fract->x_axis + i * (fract->axis_range / fract->win_height);
-	B = fract->y_axis + j * (fract->axis_range / fract->win_height);
+	A = fract->x_axis - i * (fract->axis_range / fract->win_height);
+	B = fract->y_axis - j * (fract->axis_range / fract->win_height);
 	x = 0.5;
 	n = 1;
 	lambda = 0;
@@ -61,5 +61,5 @@ int	scape_lyapunov(int i, int j, void *vfract)
 		n++;
 	}
 	hue = map_lambda_to_hue(lambda, fract);
-	return (hsv2rgb(hue, 96.56, 81.9));
+	return (hsv2rgb(hue, 100.0, 100.0));
 }

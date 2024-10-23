@@ -47,8 +47,8 @@ void	init_lyapunov(fractal *fract)
 
 	fract->fractal_func = scape_lyapunov;
 	fract->axis_range = 4.0;
-	fract->x_axis = 0.0;
-	fract->y_axis = 0.0;
+	fract->x_axis = 4.0;
+	fract->y_axis = 4.0;
 }
 
 int	parse_params(char **argv, fractal *fract)

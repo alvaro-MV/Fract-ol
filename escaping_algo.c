@@ -29,6 +29,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		{
 			color = fract->fractal_func(i, j, fract);
 			color = (color + fract->color_offset) % 0x00ffffff;
+			color += 3 * 0x00111112; //Para 500 iteraciones; 3 * para 4000
 			print_pixel(vars->img, i, j, color);
 			j++;
 		}
