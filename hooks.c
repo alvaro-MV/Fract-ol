@@ -28,7 +28,7 @@ int	manage_keys(int key, mlx_vars *vars)
 	else if (key == 111) // letra o: cambiar color fuera set fract.
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
-		vars->fract->color_offset += 0x00111112;
+		vars->fract->color_offset += 0x00214112;
 		print_fractal(vars, vars->fract);
 	}
 	else if (key >= 65361 && key <= 65364)

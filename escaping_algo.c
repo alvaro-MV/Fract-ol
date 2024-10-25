@@ -29,9 +29,9 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		{
 			color = fract->fractal_func(i, j, fract);
 			color = (color + fract->color_offset) % 0x00ffffff;
-			color += 3 * 0x00111112; //Para 500 iteraciones; 3 * para 4000 para azul sin nada.
-			//color = color + 0x00702010; genera un collor rosita.
-			color = color + 0x00400410;
+			color += 8 * 0x00111112; //Para 500 iteraciones; 3 * para 4000 para azul sin nada.
+			//color = color + 0x00702010;
+			//color = color + 0x00400410;
 			print_pixel(vars->img, i, j, color);
 			j++;
 		}
