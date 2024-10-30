@@ -22,8 +22,9 @@ int	scape_mandelbrot(int i, int j, void *vfract)
 		z.re = temp;
 		iter++;
 	}
-	hue = ((double) iter * 360) / fract->max_iter;
-	hue = fmod(pow(hue, 1.5), 360);	
+	hue = fmod(((double) iter * 360), fract->max_iter);
+	hue = fmod(pow(hue, 1.5), 360);
+	//hue = (double) (((long) hue & 0x000ffffffff00000) >> 21);
 	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }
 
