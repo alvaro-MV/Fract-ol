@@ -7,11 +7,13 @@ static int	check_floats_julia(char **argv)
 	int	j;
 
 	i = 1;
-	j = 0;
 	if (argv[3] != NULL)
 		return (0);
 	while (i < 3)
 	{
+		j = 0;
+		if (argv[i][0] == '+' || argv[i][0] == '-')
+			j++;
 		while (argv[i][j])
 		{
 			if ((argv[i][j] < '0' || argv[i][j] > '9')
