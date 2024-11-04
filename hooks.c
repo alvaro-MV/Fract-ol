@@ -18,7 +18,7 @@ void	manage_arrows(int key, mlx_vars *vars)
 int	manage_keys(int key, mlx_vars *vars)
 {
 	if (key == 65307) //escape
-		mlx_destroy_window(vars->mlx, vars->win);
+		close_win(vars);
 //	else if (key == 105) // letra i: cambiar color del set fractal
 	//{
 		//mlx_destroy_image(vars->mlx, vars->img.img);

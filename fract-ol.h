@@ -60,6 +60,7 @@ typedef	struct var_mlx {
 int	    ft_xtoi(char *str);
 double	ft_atof(char *str);
 int		parse_params(char **argv, fractal *fract);
+int		close_win(mlx_vars *vars);
 
 //Escaping algo
 void	print_pixel(t_data img, int x, int y, int color);

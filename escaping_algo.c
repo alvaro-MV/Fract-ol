@@ -15,7 +15,6 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	int		i;
 	int		j;
 	int 	color;
-	//char	**palette;
 
 	i = 0;
 	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
@@ -54,7 +53,10 @@ void init_fractal( fractal *fract, char **argv)
 
 int	close_win(mlx_vars *vars)
 {
-	return (mlx_destroy_window(vars->mlx, vars->win));
+	mlx_destroy_image(vars->mlx, vars->img.img);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	exit(0);
 }
 
 int	main(int argc, char **argv)
@@ -69,11 +71,12 @@ int	main(int argc, char **argv)
 	vars.fract = &fract;
 	vars.height = fract.win_height;
 	vars.width = fract.win_width;
-	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "Fractals");
+	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "");
 	print_fractal(&vars, &fract);
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);
 	mlx_loop(vars.mlx);
-	mlx_destroy_window(vars.mlx, vars.win);
+	// mlx_destroy_image(vars.mlx, vars.img.img);
+	// mlx_destroy_window(vars.mlx, vars.win);
 	return (0);
 }
