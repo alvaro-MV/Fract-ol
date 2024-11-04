@@ -1,20 +1,15 @@
 #include "fractals.h"
 
-int	scape_mandelbrot(int i, int j, void *vfract)
+int	calc_iter_mandel(fractal *fract, complex c)
 {
-	complex	c;
 	int		iter;
 	complex	z;
 	double	temp;
-	double	hue;
-	fractal	*fract;
 
-	fract = (fractal *) vfract;
-	c.re = fract->x_axis + i * (fract->axis_range / fract->win_height);
-	c.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
 	iter = 0;
 	z.re = 0;
 	z.im = 0;
+	temp = 0;
 	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < (1 << 16))
 	{
 		temp = z.re * z.re - z.im * z.im + c.re;
@@ -22,6 +17,20 @@ int	scape_mandelbrot(int i, int j, void *vfract)
 		z.re = temp;
 		iter++;
 	}
+	return (iter);
+}
+
+int	scape_mandelbrot(int i, int j, void *vfract)
+{
+	complex	c;
+	int		iter;
+	double	hue;
+	fractal	*fract;
+
+	fract = (fractal *) vfract;
+	c.re = fract->x_axis + i * (fract->axis_range / fract->win_height);
+	c.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
+	iter = calc_iter_mandel(fract, c);
 	hue = fmod(((double) iter * 360), fract->max_iter);
 	hue = fmod(pow(hue, 1.5), 360);
 	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
@@ -36,7 +45,7 @@ int	scape_julia(int i, int j, void *vfract)
 	fractal	*fract;
 
 	fract = (fractal *) vfract;
-	z.re = fract->x_axis + i * (fract->axis_range / fract->win_height); //Assuming R = 2;
+	z.re = fract->x_axis + i * (fract->axis_range / fract->win_height);
 	z.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
 	iter = 0;
 	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < 4.0)
@@ -47,23 +56,18 @@ int	scape_julia(int i, int j, void *vfract)
 		iter++;
 	}
 	hue = ((double) iter * 360) / fract->max_iter;
-	hue = fmod(pow(hue, 1.5), 360);	
+	hue = fmod(pow(hue, 1.5), 360);
 	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }
 
-int	scape_burning_ship(int i, int j, void *vfract)
+int	calc_iter_bship(fractal *fract, complex c)
 {
-	complex	c;
 	int		iter;
 	complex	z;
 	double	temp;
-	double	hue;
-	fractal	*fract;
 
-	fract = (fractal *) vfract;
-	c.re = fract->x_axis + i * (fract->axis_range / fract->win_height);
-	c.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
 	iter = 0;
+	temp = 0;
 	z.re = c.re;
 	z.im = c.im;
 	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < (1 << 16))
@@ -75,7 +79,21 @@ int	scape_burning_ship(int i, int j, void *vfract)
 		z.re = temp;
 		iter++;
 	}
+	return (iter);
+}
+
+int	scape_burning_ship(int i, int j, void *vfract)
+{
+	complex	c;
+	int		iter;
+	double	hue;
+	fractal	*fract;
+
+	fract = (fractal *) vfract;
+	c.re = fract->x_axis + i * (fract->axis_range / fract->win_height);
+	c.im = fract->y_axis + j * (fract->axis_range / fract->win_width);
+	iter = calc_iter_bship(fract, c);
 	hue = ((double) iter * 360) / fract->max_iter;
-	hue = fmod(pow(hue, 1.5), 360);	
+	hue = fmod(pow(hue, 1.5), 360);
 	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }

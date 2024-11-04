@@ -7,20 +7,19 @@ void	print_pixel(t_data img, int x, int y, int color)
 	char	*dst;
 
 	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-	* (unsigned int *) dst = color;
+	*(unsigned int *) dst = color;
 }
 
 void	print_fractal(mlx_vars *vars, fractal *fract)
 {
 	int		i;
 	int		j;
-	int 	color;
+	int		color;
 
 	i = 0;
 	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, 
+	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel,
 										&vars->img.line_length, &vars->img.endian);
-	
 	while (i < fract->win_height) 
 	{
 		j = 0;
@@ -28,7 +27,7 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 		{
 			color = fract->fractal_func(i, j, fract);
 			color = (color + fract->color_offset) % 0x00ffffff;
-			color += 8 * 0x00111112; //Para 500 iteraciones; 3 * para 4000 para azul sin nada.
+			color += 5 * 0x00111112;
 			
 			print_pixel(vars->img, i, j, color);
 			j++;
@@ -76,7 +75,5 @@ int	main(int argc, char **argv)
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);
 	mlx_loop(vars.mlx);
-	// mlx_destroy_image(vars.mlx, vars.img.img);
-	// mlx_destroy_window(vars.mlx, vars.win);
 	return (0);
 }

@@ -39,10 +39,3 @@ double	ft_atof(char *str)
 		value *= -1;
 	return (value);
 }
-
-//int main()
-//{
-	//double dn =  ft_atof("-12388.567");
-    //printf("mine: %.2lf\n", dn);
-    //return (0);
-//}
