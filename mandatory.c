@@ -10,7 +10,7 @@ int	calc_iter_mandel(fractal *fract, complex c)
 	z.re = 0;
 	z.im = 0;
 	temp = 0;
-	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < (1 << 16))
+	while (iter < fract->max_iter && z.re * z.re + z.im * z.im < 4)
 	{
 		temp = z.re * z.re - z.im * z.im + c.re;
 		z.im = 2 * z.re * z.im + c.im;

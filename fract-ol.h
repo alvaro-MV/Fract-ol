@@ -52,8 +52,8 @@ typedef	struct var_mlx {
 }			mlx_vars;
 
 
-# define WIN_HEIGHT 900
-# define WIN_WIDTH 900
+# define WIN_HEIGHT 1900
+# define WIN_WIDTH 1900
 
 # define MAX_ITER 60
 
@@ -65,6 +65,6 @@ int		close_win(mlx_vars *vars);
 //Escaping algo
 void	print_pixel(t_data img, int x, int y, int color);
 void	print_fractal(mlx_vars *vars, fractal *fract);
-void	init_fractal( fractal *fract, char **argv);
+void	init_fractal(mlx_vars *vars, char **argv);
 
 #endif

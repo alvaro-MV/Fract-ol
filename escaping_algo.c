@@ -37,8 +37,19 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0,0);
 }
 
-void init_fractal( fractal *fract, char **argv)
+int	close_win(mlx_vars *vars)
 {
+	mlx_destroy_image(vars->mlx, vars->img.img);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	exit(0);
+}
+
+void init_fractal(mlx_vars *vars, char **argv)
+{
+	fractal	*fract;
+
+	fract = vars->fract;
 	fract->x_axis = -2.0;
 	fract->y_axis  = -1.5;
 	fract->axis_range = 3.0;
@@ -47,15 +58,10 @@ void init_fractal( fractal *fract, char **argv)
 	fract->win_width = WIN_WIDTH;
 	fract->max_iter = MAX_ITER;
 	if (!parse_params(argv, fract))
+	{
+		mlx_destroy_display(vars->mlx);
 		exit(-1);
-}
-
-int	close_win(mlx_vars *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->img.img);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	exit(0);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -66,8 +72,8 @@ int	main(int argc, char **argv)
 	(void) argc;
 	vars.mlx = mlx_init();
 	argv++;
-	init_fractal(&fract, argv);
 	vars.fract = &fract;
+	init_fractal(&vars, argv);
 	vars.height = fract.win_height;
 	vars.width = fract.win_width;
 	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "");
