@@ -55,7 +55,7 @@ typedef	struct var_mlx {
 # define WIN_HEIGHT 1900
 # define WIN_WIDTH 1900
 
-# define MAX_ITER 60
+# define MAX_ITER 30
 
 int	    ft_xtoi(char *str);
 double	ft_atof(char *str);
