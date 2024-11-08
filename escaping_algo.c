@@ -80,6 +80,7 @@ int	main(int argc, char **argv)
 	print_fractal(&vars, &fract);
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);
+	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }
