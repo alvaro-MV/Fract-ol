@@ -6,11 +6,11 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:39:10 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/11/13 14:39:11 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:14:27 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "colors.h"
+#include "fract-ol.h"
 
 uint32_t get_colour(int32_t r, int32_t g, int32_t b, int32_t a)
 {

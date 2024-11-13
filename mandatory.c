@@ -58,7 +58,7 @@ int	scape_julia(int i, int j, void *vfract)
 	}
 	hue = ((double) iter * 360) / fract->max_iter;
 	hue = fmod(pow(hue, 1.5), 360);
-	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
+	return (get_color_rgb(iter, fract->max_iter));
 }
 
 int	calc_iter_bship(fractal *fract, complex c)
