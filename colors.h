@@ -18,6 +18,10 @@ typedef struct rgb_s
 	double	b;
 }			rgb;
 
+# include <ctype.h>
+
+uint32_t get_color_rgb(int iterations, int max_iterations);
+uint32_t get_colour(int32_t r, int32_t g, int32_t b, int32_t a);
 
 char	**get_palette(char *path, int len_palette);
 void	hsv2rgb_calc_intermediate(hsv hsv_t);

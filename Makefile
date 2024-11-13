@@ -4,7 +4,8 @@ NAME=fract-ol
 LIB_DIR=./lib
 LIBFT=lib/libft.a
 
-SRCS=color_map.c \
+SRCS=rgb_map.c \
+	 hsv_map.c \
      mandatory.c \
      julia_sets.c \
      escaping_algo.c \

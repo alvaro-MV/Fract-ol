@@ -1,4 +1,5 @@
 #include "fractals.h"
+#include "colors.h"
 
 int	calc_iter_mandel(fractal *fract, complex c)
 {
@@ -33,7 +34,7 @@ int	scape_mandelbrot(int i, int j, void *vfract)
 	iter = calc_iter_mandel(fract, c);
 	hue = fmod(((double) iter * 360), fract->max_iter);
 	hue = fmod(pow(hue, 1.5), 360);
-	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
+	return (get_color_rgb(iter, fract->max_iter));
 }
 
 int	scape_julia(int i, int j, void *vfract)
