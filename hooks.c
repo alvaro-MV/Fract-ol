@@ -3,13 +3,13 @@
 void	manage_arrows(int key, mlx_vars *vars)
 {
 	ft_printf("key: %d\n", key);
-	if (key == 65364) //flecha hacia abajo: mover el fractal hacia abajo.
+	if (key == DOWN_ARROW)
 		vars->fract->y_axis += vars->fract->axis_range / 3;
-	else if (key == 65362) //flecha hacia arriba: mover hacia arriba.
+	else if (key == UP_ARROW)
 		vars->fract->y_axis -= vars->fract->axis_range / 3;
-	else if (key == 65363) //flecha hacia la derecha: ...
+	else if (key == RIGHT_ARROW)
 		vars->fract->x_axis += vars->fract->axis_range / 3;
-	else if (key == 65361) //flecha hacia la izq: ...
+	else if (key == LEFT_ARROW)
 		vars->fract->x_axis -= vars->fract->axis_range / 3;
 	mlx_destroy_image(vars->mlx, vars->img.img);
 	print_fractal(vars, vars->fract);
@@ -19,21 +19,20 @@ int	manage_keys(int key, mlx_vars *vars)
 {
 	if (key == 65307) //escape
 		close_win(vars);
-//	else if (key == 105) // letra i: cambiar color del set fractal
-	//{
-		//mlx_destroy_image(vars->mlx, vars->img.img);
-		//vars->fract->max_iter += 1000;
-		//print_fractal(vars, vars->fract);
-	//}
-	else if (key == 111) // letra o: cambiar color fuera set fract.
+	// else if (key == 105) // letra i: cambiar color del set fractal
+	// {
+	// 	mlx_destroy_image(vars->mlx, vars->img.img);
+	// 	vars->fract->max_iter += 1000;
+	// 	print_fractal(vars, vars->fract);
+	// }
+	else if (key == O_KEY)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		vars->fract->color_offset += 0x00214112;
 		print_fractal(vars, vars->fract);
 	}
-	else if (key >= 65361 && key <= 65364)
+	else if (key >= LEFT_ARROW && key <= DOWN_ARROW)
 		manage_arrows(key, vars);
-	//else if (keymap == 65289) //tab: para cambiar el fractal.
 	return (0);
 }
 

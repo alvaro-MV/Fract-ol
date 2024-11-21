@@ -52,8 +52,8 @@ typedef	struct var_mlx {
 }			mlx_vars;
 
 
-# define WIN_HEIGHT 1900
-# define WIN_WIDTH 1900
+# define WIN_HEIGHT 900
+# define WIN_WIDTH 900
 
 # define MAX_ITER 30
 
