@@ -24,10 +24,10 @@ typedef struct fract_ol
 {
     double  	x_axis;
     double  	y_axis;
-	double		axis_range;
+	double		axis;
 	int			color_offset;
-	int			win_height;
-	int			win_width;
+	int			win_h;
+	int			win_w;
 	int			max_iter;
 	scape_func	fractal_func;
 	double		j_real;

@@ -58,8 +58,8 @@ int	scape_lyapunov(int i, int j, void *vfract)
 	fractal	*fract;
 
 	fract = (fractal *) vfract;
-	a = fract->x_axis + i * (fract->axis_range / fract->win_height);
-	b = fract->y_axis + j * (fract->axis_range / fract->win_height);
+	a = fract->x_axis + i * (fract->axis / fract->win_h);
+	b = fract->y_axis + j * (fract->axis / fract->win_h);
 	lambda = calc_lambda(fract, a, b);
 	hue = map_lambda_to_hue(lambda, fract);
 	return (hsv2rgb(hue, 100.0, 100.0));

@@ -4,13 +4,13 @@ void	manage_arrows(int key, mlx_vars *vars)
 {
 	ft_printf("key: %d\n", key);
 	if (key == DOWN_ARROW)
-		vars->fract->y_axis += vars->fract->axis_range / 3;
+		vars->fract->y_axis += vars->fract->axis / 3;
 	else if (key == UP_ARROW)
-		vars->fract->y_axis -= vars->fract->axis_range / 3;
+		vars->fract->y_axis -= vars->fract->axis / 3;
 	else if (key == RIGHT_ARROW)
-		vars->fract->x_axis += vars->fract->axis_range / 3;
+		vars->fract->x_axis += vars->fract->axis / 3;
 	else if (key == LEFT_ARROW)
-		vars->fract->x_axis -= vars->fract->axis_range / 3;
+		vars->fract->x_axis -= vars->fract->axis / 3;
 	mlx_destroy_image(vars->mlx, vars->img.img);
 	print_fractal(vars, vars->fract);
 }
@@ -45,17 +45,17 @@ int	manage_mouse(int button, int x, int y, mlx_vars *vars)
 	frac = vars->fract;
 	if (button == 4)
 	{
-		frac->x_axis += x * (frac->axis_range / frac->win_height) - frac->axis_range / 4;
-		frac->y_axis += y * (frac->axis_range / frac->win_height) - frac->axis_range / 4;
-		frac->axis_range /= 1.5;
+		frac->x_axis += x * (frac->axis / frac->win_h) - frac->axis / 4;
+		frac->y_axis += y * (frac->axis / frac->win_h) - frac->axis / 4;
+		frac->axis /= 1.5;
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		print_fractal(vars, vars->fract);
 	}
 	else if (button == 5)
 	{
-		frac->x_axis -= x * (frac->axis_range / frac->win_height) - frac->axis_range / 4;
-		frac->y_axis -= y * (frac->axis_range / frac->win_height) - frac->axis_range / 4;
-		frac->axis_range *= 1.5;
+		frac->x_axis -= x * (frac->axis / frac->win_h) - frac->axis / 4;
+		frac->y_axis -= y * (frac->axis / frac->win_h) - frac->axis / 4;
+		frac->axis *= 1.5;
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		print_fractal(vars, vars->fract);
 	}

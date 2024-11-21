@@ -15,22 +15,23 @@ void	print_fractal(mlx_vars *vars, fractal *fract)
 	int		i;
 	int		j;
 	int		color;
+	t_data	im;
 
 	i = 0;
-	vars->img.img = mlx_new_image(vars->mlx, fract->win_height, fract->win_width);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel,
-										&vars->img.line_length, &vars->img.endian);
-	while (i < fract->win_height) 
+	im = vars->img;
+	im.img = mlx_new_image(vars->mlx, fract->win_h, fract->win_w);
+	im.addr = mlx_get_data_addr(im.img, &im.bits_per_pixel,
+										&im.line_length, &im.endian);
+	vars->img = im;
+	while (i < fract->win_h) 
 	{
 		j = 0;
-		while (j < fract->win_width)
+		while (j < fract->win_w)
 		{
 			color = fract->fractal_func(i, j, fract);
 			color = (color + fract->color_offset) % 0x00ffffff;
 			color += 5 * 0x00111112;
-			
-			print_pixel(vars->img, i, j, color);
-			j++;
+			print_pixel(vars->img, i, j++, color);
 		}
 		i++;
 	}
@@ -53,10 +54,10 @@ void init_fractal(mlx_vars *vars, char **argv)
 	fract = vars->fract;
 	fract->x_axis = -2.0;
 	fract->y_axis  = -1.5;
-	fract->axis_range = 3.0;
+	fract->axis = 3.0;
 	fract->color_offset = 0;
-	fract->win_height = WIN_HEIGHT;
-	fract->win_width = WIN_WIDTH;
+	fract->win_h = WIN_HEIGHT;
+	fract->win_w = WIN_WIDTH;
 	fract->max_iter = MAX_ITER;
 	if (!parse_params(argv, fract))
 	{
@@ -75,9 +76,9 @@ int	main(int argc, char **argv)
 	argv++;
 	vars.fract = &fract;
 	init_fractal(&vars, argv);
-	vars.height = fract.win_height;
-	vars.width = fract.win_width;
-	vars.win = mlx_new_window(vars.mlx, fract.win_height, fract.win_width, "");
+	vars.height = fract.win_h;
+	vars.width = fract.win_w;
+	vars.win = mlx_new_window(vars.mlx, fract.win_h, fract.win_w, "");
 	print_fractal(&vars, &fract);
 	mlx_key_hook(vars.win, manage_keys, &vars);
 	mlx_mouse_hook(vars.win, manage_mouse, &vars);

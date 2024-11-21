@@ -38,8 +38,8 @@ int	scape_julia_sets(int i, int j, fractal *fract)
 	double	hue;
 	int		iter;
 
-	z_real = fract->x_axis + i * (fract->axis_range / fract->win_height);
-	z_imag = fract->y_axis + j * (fract->axis_range / fract->win_width);
+	z_real = fract->x_axis + i * (fract->axis / fract->win_h);
+	z_imag = fract->y_axis + j * (fract->axis / fract->win_w);
 	iter = get_poly_iter_3(z_real, z_imag, fract);
 	hue = ((double) iter * 360) / fract->max_iter;
 	hue = fmod(pow(hue, 1.5), 360);	
