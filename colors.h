@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 19:37:46 by alvmoral          #+#    #+#             */
+/*   Updated: 2024/12/02 19:41:19 by alvmoral         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COLORS_H
 # define COLORS_H
 
-typedef struct hsv_s
+# include <ctype.h>
+
+typedef struct s_hsv
 {
 	double	h;
 	double	s;
@@ -9,29 +23,21 @@ typedef struct hsv_s
 	double	*p;
 	double	*q;
 	double	*t;
-}			hsv;
+}			t_hsv;
 
-typedef struct rgb_s
+typedef struct s_rgb
 {
 	double	r;
 	double	g;
 	double	b;
-}			rgb;
+}			t_rgb;
 
-# include <ctype.h>
-
-uint32_t get_color_rgb(int iterations, int max_iterations);
-uint32_t get_colour(int32_t r, int32_t g, int32_t b, int32_t a);
-
-char	**get_palette(char *path, int len_palette);
-void	hsv2rgb_calc_intermediate(hsv hsv_t);
-void	hsv_fill_rgb(rgb *rgb_t, double hsv1, double hsv2, double hsv3);
-void	hsv2rgb_handle_saturation(rgb *rgb_t, hsv hsv_t);
-int		hsv2rgb_adjust_rgb(rgb rgb_t);
-int		hsv2rgb(double h, double s, double v);
-
-
-# define COLOR_PATH "colors.txt"
-# define COLOR_MAP_LEN 754
+void		hsv2rgb_calc_intermediate(t_hsv hsv_t);
+void		hsv_fill_rgb(t_rgb *rgb_t, double hsv1, double hsv2, double hsv3);
+void		hsv2rgb_handle_saturation(t_rgb *rgb_t, t_hsv hsv_t);
+int			hsv2rgb_adjust_rgb(t_rgb rgb_t);
+int			hsv2rgb(double h, double s, double v);
+int32_t		get_colour(int32_t r, int32_t g, int32_t b, int32_t a);
+uint32_t	get_color(int iterations, int max_iterations);
 
 #endif

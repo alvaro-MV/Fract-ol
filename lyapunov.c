@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lyapunov.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 18:36:52 by alvmoral          #+#    #+#             */
+/*   Updated: 2024/12/02 20:01:38 by alvmoral         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractals.h"
 
 static double	absol(double n)
@@ -8,7 +20,7 @@ static double	absol(double n)
 		return (-n);
 }
 
-double	map_lambda_to_hue(double lambda, fractal *fract)
+double	map_lambda_to_hue(double lambda, t_fractal *fract)
 {
 	long	*shifted_lambda;
 
@@ -26,7 +38,7 @@ double	map_lambda_to_hue(double lambda, fractal *fract)
 		return (240.0);
 }
 
-double	calc_lambda(fractal *fract, double a, double b)
+double	calc_lambda(t_fractal *fract, double a, double b)
 {
 	double	r;
 	double	x;
@@ -46,18 +58,19 @@ double	calc_lambda(fractal *fract, double a, double b)
 		lambda += log(absol(r * (1 - 2 * x)));
 		n++;
 	}
+	fract->iter = n;
 	return (lambda);
 }
 
 int	scape_lyapunov(int i, int j, void *vfract)
 {
-	double	a;
-	double	b;
-	double	lambda;
-	double	hue;
-	fractal	*fract;
+	double		a;
+	double		b;
+	double		lambda;
+	double		hue;
+	t_fractal	*fract;
 
-	fract = (fractal *) vfract;
+	fract = (t_fractal *) vfract;
 	a = fract->x_axis + i * (fract->axis / fract->win_h);
 	b = fract->y_axis + j * (fract->axis / fract->win_h);
 	lambda = calc_lambda(fract, a, b);

@@ -1,19 +1,17 @@
 MLX_PATH=mlx_linux
 MLX_LIB=mlx
-NAME=fract-ol
-LIB_DIR=./lib
-LIBFT=lib/libft.a
+NAME=fractol
+LIB_DIR=./libft
+LIBFT=libft/libft.a
 
 SRCS=rgb_map.c \
 	 hsv_map.c \
      mandatory.c \
-     julia_sets.c \
-     escaping_algo.c \
-     ft_xtoi.c \
+     main.c \
 	 ft_atof.c \
      hooks.c \
 	 parse_params.c \
-	 lyapunov.c
+	 lyapunov.c \
 
 
 FLAGS= -Wall -Wextra -Werror

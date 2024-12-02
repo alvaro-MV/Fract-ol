@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mandatory.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 18:38:32 by alvmoral          #+#    #+#             */
+/*   Updated: 2024/12/02 20:00:10 by alvmoral         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractals.h"
 #include "colors.h"
 
-int	calc_iter_mandel(fractal *fract, complex c)
+int	calc_iter_mandel(t_fractal *fract, t_complex c)
 {
-	int		iter;
-	complex	z;
-	double	temp;
+	int			iter;
+	t_complex	z;
+	double		temp;
 
 	iter = 0;
 	z.re = 0;
@@ -23,29 +35,26 @@ int	calc_iter_mandel(fractal *fract, complex c)
 
 int	scape_mandelbrot(int i, int j, void *vfract)
 {
-	complex	c;
-	int		iter;
-	double	hue;
-	fractal	*fract;
+	t_complex	c;
+	int			iter;
+	t_fractal	*fract;
 
-	fract = (fractal *) vfract;
+	fract = (t_fractal *) vfract;
 	c.re = fract->x_axis + i * (fract->axis / fract->win_h);
 	c.im = fract->y_axis + j * (fract->axis / fract->win_w);
 	iter = calc_iter_mandel(fract, c);
-	hue = fmod(((double) iter * 360), fract->max_iter);
-	hue = fmod(pow(hue, 1.5), 360);
-	return (get_color_rgb(iter, fract->max_iter));
+	fract->iter = iter;
+	return (get_color(iter, fract->max_iter));
 }
 
 int	scape_julia(int i, int j, void *vfract)
 {
-	complex	z;
-	int		iter;
-	double	temp;
-	double	hue;
-	fractal	*fract;
+	t_complex	z;
+	int			iter;
+	double		temp;
+	t_fractal	*fract;
 
-	fract = (fractal *) vfract;
+	fract = (t_fractal *) vfract;
 	z.re = fract->x_axis + i * (fract->axis / fract->win_h);
 	z.im = fract->y_axis + j * (fract->axis / fract->win_w);
 	iter = 0;
@@ -56,16 +65,15 @@ int	scape_julia(int i, int j, void *vfract)
 		z.re = temp;
 		iter++;
 	}
-	hue = ((double) iter * 360) / fract->max_iter;
-	hue = fmod(pow(hue, 1.5), 360);
-	return (get_color_rgb(iter, fract->max_iter));
+	fract->iter = iter;
+	return (get_color(iter, fract->max_iter));
 }
 
-int	calc_iter_bship(fractal *fract, complex c)
+int	calc_iter_bship(t_fractal *fract, t_complex c)
 {
-	int		iter;
-	complex	z;
-	double	temp;
+	int			iter;
+	t_complex	z;
+	double		temp;
 
 	iter = 0;
 	temp = 0;
@@ -85,16 +93,14 @@ int	calc_iter_bship(fractal *fract, complex c)
 
 int	scape_burning_ship(int i, int j, void *vfract)
 {
-	complex	c;
-	int		iter;
-	double	hue;
-	fractal	*fract;
+	t_complex	c;
+	int			iter;
+	t_fractal	*fract;
 
-	fract = (fractal *) vfract;
+	fract = (t_fractal *) vfract;
 	c.re = fract->x_axis + i * (fract->axis / fract->win_h);
 	c.im = fract->y_axis + j * (fract->axis / fract->win_w);
 	iter = calc_iter_bship(fract, c);
-	hue = ((double) iter * 360) / fract->max_iter;
-	hue = fmod(pow(hue, 1.5), 360);
-	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
+	fract->iter = iter;
+	return (get_color(iter, fract->max_iter));
 }

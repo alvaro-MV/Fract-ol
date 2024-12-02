@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 18:31:28 by alvmoral          #+#    #+#             */
+/*   Updated: 2024/12/02 19:56:55 by alvmoral         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hooks.h"
 
-void	manage_arrows(int key, mlx_vars *vars)
+void	manage_arrows(int key, t_mlx_vars *vars)
 {
 	ft_printf("key: %d\n", key);
 	if (key == DOWN_ARROW)
@@ -15,16 +27,10 @@ void	manage_arrows(int key, mlx_vars *vars)
 	print_fractal(vars, vars->fract);
 }
 
-int	manage_keys(int key, mlx_vars *vars)
+int	manage_keys(int key, t_mlx_vars *vars)
 {
-	if (key == 65307) //escape
+	if (key == 65307)
 		close_win(vars);
-	// else if (key == 105) // letra i: cambiar color del set fractal
-	// {
-	// 	mlx_destroy_image(vars->mlx, vars->img.img);
-	// 	vars->fract->max_iter += 1000;
-	// 	print_fractal(vars, vars->fract);
-	// }
 	else if (key == O_KEY)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
@@ -36,9 +42,9 @@ int	manage_keys(int key, mlx_vars *vars)
 	return (0);
 }
 
-int	manage_mouse(int button, int x, int y, mlx_vars *vars)
+int	manage_mouse(int button, int x, int y, t_mlx_vars *vars)
 {
-	fractal	*frac;
+	t_fractal	*frac;
 
 	printf("x: %d,  y: %d\n", x, y);
 	printf("button: %d\n", button);
