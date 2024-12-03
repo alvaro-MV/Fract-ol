@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:31:28 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/03 10:47:50 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:51:54 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	manage_arrows(int key, t_mlx_vars *vars)
 
 int	manage_keys(int key, t_mlx_vars *vars)
 {
-	if (key == 65307)
+	if (key == ESCAPE)
 		close_win(vars);
 	else if (key == O_KEY)
 	{

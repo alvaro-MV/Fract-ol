@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:38:45 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/02 19:59:25 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:56:53 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	check_floats_julia(char **argv)
 
 void	print_help_message(void)
 {
-	ft_putstr_fd("usage: fract-ol -m | -j [<real const part>]", 2);
+	ft_putstr_fd("usage: fract-ol -m | -j [<real const part>] | -b | -l", 2);
 	ft_putstr_fd(" [<imaginary const part>]\n", 2);
 	ft_putstr_fd("\t-m: print the mandelbrot set.\n", 2);
 	ft_putstr_fd("\t-j: print the julia set.\n", 2);
@@ -48,6 +48,8 @@ void	print_help_message(void)
 	ft_putstr_fd("of c in the f(z) = z^2 + c expression.\n", 2);
 	ft_putstr_fd("\t\t<imaginary const part>: the imaginary part ", 2);
 	ft_putstr_fd("of c in the f(z) = z^2 + c expression.\n", 2);
+	ft_putstr_fd("\t-b: print the burning ship fractal.\n", 2);
+	ft_putstr_fd("\t-l: print the lyapunov fractal.\n", 2);
 }
 
 int	print_error_msg(void)
