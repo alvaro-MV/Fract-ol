@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:36:41 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/02 20:01:46 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:31:12 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	init_fractal(t_mlx_vars *vars, char **argv)
 	if (!parse_params(argv, fract))
 	{
 		mlx_destroy_display(vars->mlx);
+		free(vars->mlx);
 		exit(-1);
 	}
 }

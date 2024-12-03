@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:31:28 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/02 19:56:55 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:28:21 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	manage_arrows(int key, t_mlx_vars *vars)
 {
-	ft_printf("key: %d\n", key);
 	if (key == DOWN_ARROW)
 		vars->fract->y_axis += vars->fract->axis / 3;
 	else if (key == UP_ARROW)
@@ -46,8 +45,6 @@ int	manage_mouse(int button, int x, int y, t_mlx_vars *vars)
 {
 	t_fractal	*frac;
 
-	printf("x: %d,  y: %d\n", x, y);
-	printf("button: %d\n", button);
 	frac = vars->fract;
 	if (button == 4)
 	{
