@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:31:28 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/03 10:28:21 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:47:50 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	manage_mouse(int button, int x, int y, t_mlx_vars *vars)
 	}
 	else if (button == 5)
 	{
-		frac->x_axis -= x * (frac->axis / frac->win_h) - frac->axis / 4;
-		frac->y_axis -= y * (frac->axis / frac->win_h) - frac->axis / 4;
+		frac->x_axis -= frac->axis / 4;
+		frac->y_axis -= frac->axis / 4;
 		frac->axis *= 1.5;
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		print_fractal(vars, vars->fract);
