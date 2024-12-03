@@ -1,5 +1,6 @@
 MLX_PATH=mlx_linux
 MLX_LIB=mlx
+MLX_LIBPATH=mlx_linux/libmlx.a
 NAME=fractol
 LIB_DIR=./libft
 LIBFT=libft/libft.a
@@ -21,17 +22,21 @@ OBJ=$(patsubst %.c, %.o, $(SRCS))
 	gcc -Wall -Wextra -I/usr/include -I$(MLX_PATH) -O3 -c $< -o $@ -g
 
 
-$(NAME): $(LIBFT) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ) $(MLX_LIBPATH)
 	$(CC) $(OBJ) $(LIBFT) -L$(MLX_PATH) -l$(MLX_LIB) -L/usr/lib -I$(MLX_PATH) -lXext -lX11 -lm -lz -o $(NAME) -g
 
 
 $(LIBFT):
 	@make -sC $(LIB_DIR)
 
+$(MLX_LIBPATH):
+	@make -sC $(MLX_PATH)
+
 all: $(NAME)
 
 clean:
 	@make fclean -C $(LIB_DIR)
+	make clean -C mlx_linux
 	@rm -rf $(OBJ)
 
 fclean: clean
