@@ -46,4 +46,8 @@ re:
 	make fclean
 	make all
 
+norm:
+	@norminette *.c
+	@norminette libft
+
 .PHONY: all re clean fclean

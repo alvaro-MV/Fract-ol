@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:43:49 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/02 19:56:10 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:08:39 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct var_mlx
 # define WIN_HEIGHT 900
 # define WIN_WIDTH 900
 
-# define MAX_ITER 30
+# define MAX_ITER 60
 
 double	ft_atof(char *str);
 int		parse_params(char **argv, t_fractal *fract);
