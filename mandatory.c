@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandatory.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:38:32 by alvmoral          #+#    #+#             */
-/*   Updated: 2024/12/02 20:00:10 by alvmoral         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:23:33 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,16 @@ int	scape_mandelbrot(int i, int j, void *vfract)
 	t_complex	c;
 	int			iter;
 	t_fractal	*fract;
+	double		hue;
 
 	fract = (t_fractal *) vfract;
 	c.re = fract->x_axis + i * (fract->axis / fract->win_h);
 	c.im = fract->y_axis + j * (fract->axis / fract->win_w);
 	iter = calc_iter_mandel(fract, c);
 	fract->iter = iter;
-	return (get_color(iter, fract->max_iter));
+	hue = ((double) iter * 360) / fract->max_iter;
+	hue = fmod(pow(hue, 1.5), 360);
+	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }
 
 int	scape_julia(int i, int j, void *vfract)
@@ -52,6 +55,7 @@ int	scape_julia(int i, int j, void *vfract)
 	t_complex	z;
 	int			iter;
 	double		temp;
+	double		hue;
 	t_fractal	*fract;
 
 	fract = (t_fractal *) vfract;
@@ -66,7 +70,9 @@ int	scape_julia(int i, int j, void *vfract)
 		iter++;
 	}
 	fract->iter = iter;
-	return (get_color(iter, fract->max_iter));
+	hue = ((double) iter * 360) / fract->max_iter;
+	hue = fmod(pow(hue, 1.5), 360);
+	return (hsv2rgb(hue, 100.0, ((double)iter / fract->max_iter) * 100));
 }
 
 int	calc_iter_bship(t_fractal *fract, t_complex c)

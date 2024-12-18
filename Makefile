@@ -19,7 +19,7 @@ FLAGS= -Wall -Wextra -Werror
 OBJ=$(patsubst %.c, %.o, $(SRCS))
 
 %.o: %.c
-	gcc -Wall -Wextra -I/usr/include -I$(MLX_PATH) -O3 -c $< -o $@ -g
+	gcc -Wall -Wextra -Werror -I/usr/include -I$(MLX_PATH) -O3 -c $< -o $@ -g
 
 
 $(NAME): $(LIBFT) $(OBJ) $(MLX_LIBPATH)
